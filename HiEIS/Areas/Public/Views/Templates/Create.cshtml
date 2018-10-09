@@ -1,0 +1,147 @@
+﻿@model HiEIS.Areas.Public.Models.CreateTemplateModel
+@{
+    ViewBag.Title = "Tạo mẫu hóa đơn";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight small-form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin mẫu hóa đơn</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content">
+
+                    @using (Html.BeginForm("Create", "Templates", FormMethod.Post, new {
+                        enctype = "multipart/form-data"
+                    }))
+                    {
+
+                        <table class="input-table">
+
+                            <tr>
+                                <td>
+                                    Tên mẫu hóa đơn
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="input-required">Mẫu số</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.Form, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Form)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="input-required">Kí hiệu</span>
+                                </td>
+
+                                <td>
+                                    @Html.TextBoxFor(p => p.Serial, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Serial)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="input-required">Số lượng</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.Amount, new { @class = "form-control", type = "number", min = "1" })
+                                    @Html.ValidationMessageFor(m => m.Amount)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="input-required">Số bắt đầu</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.BeginNo, new { @class = "form-control", type = "number", min = "0" })
+                                    @Html.ValidationMessageFor(m => m.BeginNo)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="input-required">Ngày bắt đầu sử dụng</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.Date, new { @class = "form-control", @id = "release-date", @placeholder = "dd/mm/yyyy",})
+                                    @Html.ValidationMessageFor(m => m.Date)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="input-required">Mẫu hóa đơn</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.InvoiceTemplateFile,new { @type = "file", accept = ".pdf"})
+                                    @Html.ValidationMessageFor(m => m.InvoiceTemplateFile)
+                                    
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="input-required">Thông báo phát hành</span>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(p => p.ReleaseAnnounmentFile, new {@type = "file", accept = ".pdf"})
+                                    @Html.ValidationMessageFor(m => m.ReleaseAnnounmentFile)
+                                    
+</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="color: red">* Bắt buộc</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                    @Html.ActionLink("Quay lại", "Index", "Templates", null, new { @class = "btn btn-default" })
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        var date = new Date();
+        date.setDate(date.getDate());
+
+        $('#release-date').datepicker({
+            format: "dd/mm/yyyy",
+            startDate: date,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            onSelect: function () {
+                table.draw();
+            }
+        }).attr('readonly', 'readonly').datepicker("setDate", "0");
+    </script>
+  
+}

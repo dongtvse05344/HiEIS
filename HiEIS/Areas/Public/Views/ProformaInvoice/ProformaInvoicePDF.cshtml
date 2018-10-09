@@ -1,0 +1,253 @@
+﻿@model HiEIS.Areas.Public.Models.ProformaViewPDF
+@{
+    Layout = null;
+}
+
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../../Content/style.css">
+    <link rel="stylesheet" type="text/css" href="../../../../Content/bootstrap.min.css">
+    <style>
+        body {
+            background-color: none;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+        }
+
+        #proforma-table {
+            width: 100%;
+        }
+
+            #proforma-table > thead > tr > th,
+            #proforma-table > tbody > tr > th,
+            #proforma-table > tfoot > tr > th,
+            #proforma-table > thead > tr > td,
+            #proforma-table > tbody > tr > td,
+            #proforma-table > tfoot > tr > td {
+                border-top: 1px solid #e7eaec;
+                /*line-height: 1.42857;*/
+                padding: 1px 8px 1px 8px;
+                vertical-align: top;
+            }
+
+        page[size="A4"][layout="portrait"] {
+            width: 29.7cm;
+            height: 21cm;
+        }
+
+        #proforma-info {
+            width: 100%;
+            line-height: 1.5;
+            padding: 2px 5px 2px 5px;
+        }
+
+        .left-col{
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="input-table" style="width: 100%">
+        <div class="row">
+            <div class="col-md-9">
+                <h4>@Model.StaffCompanyName</h4>
+            </div>
+            <div class="col-md-9">
+                @if (Model.StaffCompanyTel != null)
+                {
+                    <strong>Điện thoại: @Model.StaffCompanyTel</strong>
+                }
+
+                @if (Model.StaffCompanyBankAccountNumber != null)
+                {
+                    <strong>- Số TK: @Model.StaffCompanyBankAccountNumber</strong>
+                }
+
+                @if (Model.StaffCompanyBank != null)
+                {
+                    <strong> - Ngân hàng @Model.StaffCompanyBank</strong>
+                }
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>BẢNG KÊ THANH TOÁN</h2>
+            </div>
+            <div class="col-md-12 text-center">
+                <h3>TÊN KHÁCH HÀNG: @Model.CustomerEnterprise</h3>
+            </div>
+            <div class="col-md-12 text-center">
+
+                <h3>Tháng @Model.Date.ToString("MM") Năm @Model.Date.ToString("yyyy")</h3>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        <table id="proforma-table" class="table-bordered" style="padding: 2px">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="vertical-align: middle;">Khoản mục</th>
+                    <th colspan="2">Thời gian</th>
+                    <th colspan="2">Chỉ số</th>
+                    <th rowspan="2" style="vertical-align: middle;">Khối lượng</th>
+                    <th rowspan="2" style="vertical-align: middle;">Đơn giá</th>
+                    <th rowspan="2" style="vertical-align: middle;">Thành tiền</th>
+                    <th colspan="2">Thuế VAT</th>
+                    <th rowspan="2" style="vertical-align: middle;">Tổng cộng</th>
+                </tr>
+                <tr>
+                    <th>Từ</th>
+                    <th>Đến</th>
+                    <th>Cũ</th>
+                    <th>Mới</th>
+                    <th>TS %</th>
+                    <th>Tiền thuế</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProformaInvoiceItems)
+                {
+                    var price = 0;
+                    if (item.Quantity == 0)
+                    {
+                        price = (int)item.UnitPrice;
+                    }
+                    else
+                    {
+                        price = (int)item.UnitPrice * (int)item.Quantity;
+                    }
+
+                    var vatRate = item.VATRate;
+                    var VAT = "";
+                    if (item.VATRate == 0)
+                    {
+                        VAT = "0%";
+                    }
+                    else if ((double)item.VATRate == 0.1)
+                    {
+                        VAT = "10%";
+                    }
+                    else if ((double)item.VATRate == 0.05)
+                    {
+                        VAT = "5%";
+                    }
+                    else if (item.VATRate == -1)
+                    {
+                        VAT = "Không chịu thuế";
+                        vatRate = 0;
+                    }
+                    var VATAmount = price * vatRate;
+                    var total = price + VATAmount;
+                    var oldNo = item.OldNumber.ToString();
+                    var newNo = item.NewNumber.ToString();
+                    if (oldNo == "-1")
+                    {
+                        oldNo = "";
+                    }
+                    if (newNo == "-1")
+                    {
+                        newNo = "";
+                    }
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.DateFromS</td>
+                        <td>@item.DateToS</td>
+                        <td>@oldNo</td>
+                        <td>@newNo</td>
+                        <td>@item.Quantity</td>
+                        <td class="text-right">@item.UnitPrice.ToString("#,##0")</td>
+                        <td class="text-right">@price.ToString("#,##0")</td>
+                        <td>@VAT</td>
+                        <td class="text-right">@VATAmount.ToString("#,##0")</td>
+                        <td class="text-right">@total.ToString("#,##0")</td>
+                    </tr>
+                }
+
+                <tr style="font-weight: bold">
+                    <td>TỔNG CỘNG</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">@Model.SubTotal.ToString("#,##0")</td>
+                    <td></td>
+                    <td class="text-right">@Model.VATAmount.ToString("#,##0")</td>
+                    <td class="text-right">@Model.TotalNoLiabilities.ToString("#,##0")</td>
+                </tr>
+                <tr>
+                    <td colspan="10" class="text-right">Nợ kỳ trước</td>
+                    <td class="text-right">@Model.Liabilities.ToString("#,##0")</td>
+                </tr>
+                <tr style="font-weight: bold">
+                    <td colspan="10" class="text-right">Tổng cộng tiền thanh toán</td>
+                    <td class="text-right">@Model.Total.ToString("#,##0")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <table id="proforma-info">
+        <tr>
+            <td class="left-col">
+                (Nợ tháng trước vẫn còn thể hiện trên bảng kê này nếu khách hàng đóng tiền sau ngày cuối cùng của tháng)
+            </td>
+            <td class="text-center">
+                Ngày @Model.Date.ToString("dd") tháng @Model.Date.ToString("MM") năm @Model.Date.ToString("yyyy")
+            </td>
+        </tr>
+        <tr>
+            <td class="left-col">
+                Đề nghị quý công ty:
+            </td>
+            <td class="text-center">
+                <strong>TL/GIÁM ĐỐC</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="left-col" style="padding-left: 7px">
+                + Thanh toán trước ngày @Model.PaymentDeadline.ToString("dd/MM/yyyy")
+            </td>
+            <td class="text-center">
+                <strong>KẾ TOÁN</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="left-col">
+                Sau thời hạn quy định trên, công ty chúng tôi sẽ ngừng cung cấp các dịch vụ trên.
+            </td>
+            <td class="text-center"></td>
+        </tr>
+        <tr>
+            <td class="left-col">
+                Mọi thắc mắc xin vui lòng liên hệ số điện thoại @Model.StaffCompanyTel - Gặp phòng Kế Toán
+            </td>
+            <td class="text-center">
+                @if (Model.Status == 2)
+                {
+                    <strong>Đã duyệt</strong>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80%"></td>
+            <td class="text-center">
+                @if (Model.Status == 2)
+                {
+                    <strong>@Model.StaffName</strong>
+                }
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

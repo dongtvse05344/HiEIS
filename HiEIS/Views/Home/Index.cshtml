@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<section class="full-background lookup-background">
+    <div class="lookup-box text-center">
+        <h1 class="lookup-title">Tra cứu thông tin</h1>
+        <div id="lookup-tabs">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#invoice" aria-controls="invoice" role="tab" data-toggle="tab">Hóa đơn</a>
+                </li>
+                <li role="presentation">
+                    <a href="#proforma" aria-controls="proforma" role="tab" data-toggle="tab">Thông báo phí</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane in active" id="invoice">
+                    <table class="lookup-input">
+                        <tr>
+                            <td class="left">
+                                <input id="InvoiceLookupCode" name="InvoiceLookupCode" placeholder="Mã tra cứu hóa đơn" />
+                                <span class="field-validation-error invoice"></span>
+                            </td>
+                            <td class="right">
+                                <a id="lookup-invoice" class="lookup-btn">Tra cứu</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="proforma">
+                    <table class="lookup-input">
+                        <tr>
+                            <td class="left">
+                                <input id="ProformaLookupCode" name="ProformaLookupCode" placeholder="Mã tra cứu thông báo phí" />
+                                <span class="field-validation-error"></span>
+                            </td>
+                            <td class="right">
+                                <a id="lookup-proforma" class="lookup-btn">Tra cứu</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <embed src="" frameborder="0" width="100%" height="500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/hieis-lookup-index.js"></script>
+}

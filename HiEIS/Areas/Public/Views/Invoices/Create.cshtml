@@ -1,0 +1,358 @@
+﻿
+@{
+    ViewBag.Title = "Tạo hóa đơn";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin hóa đơn</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content" id="form-invoice">
+                    <div class="input-table">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Mã số thuế</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBox("TaxNo", null, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <a id="btn-tax-no" class="btn btn-primary">Lấy thông tin</a>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="input-label input-required">Mẫu số - Ký hiệu</span>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="Template" class="form-control" name="TemplateId">
+                                    @foreach (var t in ViewBag.Templates)
+                                    {
+                                        <option value="@t.Id">@t.Form - @t.Serial</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Tên người mua</span>
+                            </div>
+                            <div class="col-md-5">
+                                @Html.TextBox("Name", null, new { @class = "form-control typeahead" })
+                            </div>
+                            <div class="col-md-2">
+                                <span class="input-label input-required">Hình thức thanh toán</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownList("PaymentMethod", new SelectList(ViewBag.PaymentMethods, "Value", "Text"), new { @id = "PaymentMethod", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Tên đơn vị</span>
+                            </div>
+                            <div class="col-md-5">
+                                @Html.TextBox("Enterprise", null, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <span class="input-label">Số điện thoại</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBox("Tel", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label input-required">Địa chỉ</span>
+                            </div>
+                            <div class="col-md-5">
+                                @Html.TextBox("Address", null, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="input-label">Fax</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBox("Fax", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Ngân hàng</span>
+                            </div>
+                            <div class="col-md-5">
+                                @Html.TextBox("Bank", null, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <span class="input-label">Email</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBox("Email", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Số tài khoản</span>
+                            </div>
+                            <div class="col-md-5">
+                                @Html.TextBox("BankAccountNumber", null, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <input type="checkbox" class="i-checks" id="HasDueDate" name="HasDueDate">
+                                <label class="input-label" for="HasDueDate">Hạn thanh toán</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input readonly id="DueDate" type="text" class="form-control" name="DueDate" placeholder="dd/mm/yyyy" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Ghi chú</span>
+                            </div>
+                            <div class="col-md-5">
+                                @Html.TextArea("Note", null, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="hidden" id="CustomerId" name="CustomerId" />
+                                <a class="btn btn-default pull-right" onclick="clearInput();" id="clear-input">Xóa</a>
+                            </div>
+                        </div>
+
+                    </div><!-- /.input-table -->
+
+                    <hr />
+
+                    <!-- Button group -->
+                    <div class="row table-button-group">
+                        <div class="col-md-6 left"></div>
+                        <div class="col-md-6 right text-right">
+                            <a id="choose-products" class="btn btn-primary main-action">
+                                <i class="fa fa-plus"></i>Thêm sản phẩm
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Invoice item table -->
+                    <div>
+                        <table id="invoice-item-table" class="table table-bordered table-action">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Đơn vị tính</th>
+                                    <th class="quantity">Số lượng</th>
+                                    <th class="unit-price">Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- VAT-Total amount -->
+                    <div class="input-table">
+                        <div class="row">
+                            <div class="col-md-10"><span class="input-label pull-right">Tổng tiền dịch vụ/sản phẩm</span></div>
+                            <div class="col-md-2">
+                                <input id="SubTotal" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><span class="input-label pull-right">Thuế VAT</span></div>
+                            <div class="col-md-2">
+                                <select id="VATRate" name="VATRate" class="form-control">
+                                    @foreach (var r in ViewBag.VATRates)
+                                    {
+                                        <option value="@r.Value">@r.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4"><span class="input-label pull-right">Tiền thuế VAT</span></div>
+                            <div class="col-md-2">
+                                <input id="VATAmount" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10"><span class="input-label pull-right">Tổng cộng tiền thanh toán</span></div>
+                            <div class="col-md-2">
+                                <input id="Total" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="input-label pull-right">Số tiền viết bằng chữ (VNĐ)</span>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="AmountInWords" readonly class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button id="save-invoice" type="submit" class="btn btn-primary">Lưu</button>
+                            @Html.ActionLink("Quay lại", "Index", "Invoices", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+
+<div id="modal-form" class="modal bs-example-modal-sm fade" tabindex="-1" role="dialog" aria-labelledby="myFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="input-table">
+                    <tr>
+                        <td>Tên sản phẩm</td>
+                        <td>
+                            <select id="product-list" class="form-control">
+                                <option>----- Chọn sản phẩm -----</option>
+                                @foreach (var product in ViewBag.Products)
+                                {
+                                    <option value="@product.Id" data-price="@product.SUnitPrice" data-unit="@product.Unit" data-vat="@product.VATRate">@product.Name</option>
+                                }
+                            </select>
+                            <span class="custom-error product-error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Đơn vị</td>
+                        <td>
+                            <input readonly class="form-control" id="product-unit" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Đơn giá</td>
+                        <td>
+                            <input min="1" class="form-control" id="product-price" />
+                            <span class="custom-error price-error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Số lượng</td>
+                        <td>
+                            <input type="number" min="1" class="form-control" id="product-quantity" />
+                            <span class="custom-error quantity-error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Thuế VAT</td>
+                        <td><input readonly class="form-control" id="product-vat" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a id="save" class="btn btn-primary" data-action-type="create">Lưu</a>
+                            <a data-dismiss="modal" class="btn btn-default">Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="template-product-row">
+    <tr>
+        <td class="no"></td>
+        <td class="name"></td>
+        <td class="unit"></td>
+        <td class="quantity"></td>
+        <td class="unit-price"></td>
+        <td class="total"></td>
+        <td>
+            <a class="link js-item-update"
+               data-selected=""
+               data-vat="">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a class="link js-item-delete"
+               data-selected="">
+                <i class="fa fa-close"></i>
+            </a>
+        </td>
+    </tr>
+</template>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/hieis-invoice-input.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#save-invoice').on('click', function () {
+                var dueDateValid = true;
+                if ($('#HasDueDate').is(':checked') && $("#DueDate").val() == "") {
+                    dueDateValid = false;
+                }
+                if ($('#invoice-item-table tbody tr').length == 0 || $('#Address').val() == "") {
+                    toastr.warning("Vui lòng điền thông tin và chọn sản phẩm.", "Nhắc nhở");
+                }
+                else if (!dueDateValid) {
+                    toastr.warning("Vui lòng chọn hạn thanh toán.", "Nhắc nhở");
+                }
+                else {
+                    var invoice = getInvoice();
+                    console.log(invoice);
+
+                    $.ajax({
+                        url: "/Public/Invoices/Create/",
+                        data: invoice,
+                        method: "POST",
+                        success: function (res) {
+                            if (!res.success) {
+                                if (res.data && res.data.length) {
+                                    $('#form-invoice .field-validation-error').empty();
+                                    res.data.forEach(e => {
+                                        $('#form-invoice [name=' + e.name + ']~.field-validation-error').html(e.error);
+                                    });
+                                    swal('Không thành công', res.message, 'warning');
+                                } else {
+                                    swal('Không thành công', res.message, 'error');
+                                }
+                            } else {
+                                sessionStorage.setItem('message', res.message);
+                                window.location.replace(res.url);
+                            }
+                        },
+                        error: function (response) {
+                            console.log("Fail!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
+                    });
+                }
+
+            });
+
+        });
+
+    </script>
+
+
+}
+

@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Tạo sản phẩm";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight small-form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin sản phẩm</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content" id="form-product">
+
+                    <table class="input-table">
+                        <tr>
+                            <td>
+                                Mã sản phẩm
+                            </td>
+                            <td>
+                                @Html.TextBox("Code", null, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Tên sản phẩm</span>
+                            </td>
+                            <td>
+                                @Html.TextBox("Name", null, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Đơn vị tính
+                            </td>
+                            <td>
+                                @Html.TextBox("Unit", null, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Đơn giá</span>
+                            </td>
+                            <td>
+                                @Html.TextBox("UnitPrice", null, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Thuế suất (%)</span>
+                            </td>
+                            <td>
+                                @Html.DropDownList("VATRate", (IEnumerable<SelectListItem>)ViewBag.VATRates, null, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Có chỉ số</td>
+                            <td>
+                                @Html.CheckBox("HasIndex", false, new { @class = "i-checks" })
+                                &nbsp; (Điện, nước,...)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="color: red">* Bắt buộc</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button id="create-product" type="submit" class="btn btn-primary">Lưu</button>
+                                @Html.ActionLink("Quay lại", "Index", "Products", null, new { @class = "btn btn-default" })
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+@section scripts {
+
+    <script src="~/Scripts/hieis-product-input.js"></script>
+}

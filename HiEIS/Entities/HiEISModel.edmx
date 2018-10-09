@@ -1,0 +1,1453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HiEISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaxNo" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Tel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar(max)" Nullable="false" />
+          <Property Name="Website" Type="varchar(max)" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Bank" Type="nvarchar(max)" />
+          <Property Name="BankAccountNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CodeGuid" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CompanyCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Liabilities" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Enterprise" Type="nvarchar(max)" />
+          <Property Name="TaxNo" Type="nvarchar" MaxLength="18" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Tel" Type="varchar" MaxLength="16" />
+          <Property Name="Fax" Type="varchar" MaxLength="16" />
+          <Property Name="Bank" Type="nvarchar(max)" />
+          <Property Name="BankAccountNumber" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CustomerProduct">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LookupCode" Type="varchar" MaxLength="13" />
+          <Property Name="Number" Type="varchar" MaxLength="7" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Date" Type="smalldatetime" Nullable="false" />
+          <Property Name="DueDate" Type="smalldatetime" />
+          <Property Name="PaymentMethod" Type="int" Nullable="false" />
+          <Property Name="FileUrl" Type="nvarchar(max)" />
+          <Property Name="SubTotal" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="VATRate" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="VATAmount" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="Total" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AmountInWords" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PaymentStatus" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Enterprise" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="TaxNo" Type="nvarchar" MaxLength="18" />
+          <Property Name="Tel" Type="varchar" MaxLength="16" />
+          <Property Name="Fax" Type="varchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="BankAccountNumber" Type="nvarchar" MaxLength="256" />
+          <Property Name="Bank" Type="nvarchar" MaxLength="256" />
+          <Property Name="TemplateId" Type="int" Nullable="false" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="256" />
+          <Property Name="CodeGuid" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="VATRate" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="16" />
+          <Property Name="UnitPrice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="VATRate" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="HasIndex" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProformaInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LookupCode" Type="varchar" MaxLength="13" />
+          <Property Name="Date" Type="smalldatetime" Nullable="false" />
+          <Property Name="FileUrl" Type="varchar(max)" Nullable="false" />
+          <Property Name="PaymentDeadline" Type="smalldatetime" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="SubTotal" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="VATAmount" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TotalNoLiabilities" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Total" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Liabilities" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ProformaInvoiceItem">
+          <Key>
+            <PropertyRef Name="ProformaInvoiceId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProformaInvoiceId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="VATRate" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OldNumber" Type="int" />
+          <Property Name="NewNumber" Type="int" />
+          <Property Name="DateFrom" Type="smalldatetime" />
+          <Property Name="DateTo" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Tel" Type="varchar" MaxLength="16" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Form" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Serial" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="FileUrl" Type="varchar(max)" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="BeginNo" Type="int" Nullable="false" />
+          <Property Name="CurrentNo" Type="int" Nullable="false" />
+          <Property Name="ReleaseDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ReleaseAnnouncementUrl" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_CompanyCustomer_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="CompanyCustomer" Type="Self.CompanyCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyCustomer">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyCustomer_Customer1">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CompanyCustomer" Type="Self.CompanyCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerProduct_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerProduct" Type="Self.CustomerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerProduct">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="CustomerProduct" Type="Self.CustomerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ProformaInvoice" Type="Self.ProformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoice_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="ProformaInvoice" Type="Self.ProformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoice">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoiceItem_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProformaInvoiceItem" Type="Self.ProformaInvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoiceItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoiceItem_ProformaInvoice">
+          <End Role="ProformaInvoice" Type="Self.ProformaInvoice" Multiplicity="1" />
+          <End Role="ProformaInvoiceItem" Type="Self.ProformaInvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProformaInvoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoiceItem">
+              <PropertyRef Name="ProformaInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Template" Type="Self.Template" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Template">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HiEISModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyCustomer" EntityType="Self.CompanyCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerProduct" EntityType="Self.CustomerProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProformaInvoice" EntityType="Self.ProformaInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProformaInvoiceItem" EntityType="Self.ProformaInvoiceItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Template" EntityType="Self.Template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CompanyCustomer_Company" Association="Self.FK_CompanyCustomer_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyCustomer" EntitySet="CompanyCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyCustomer_Customer1" Association="Self.FK_CompanyCustomer_Customer1">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CompanyCustomer" EntitySet="CompanyCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_AspNetUsers" Association="Self.FK_Customer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerProduct_Customer" Association="Self.FK_CustomerProduct_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerProduct" EntitySet="CustomerProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerProduct_Product" Association="Self.FK_CustomerProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="CustomerProduct" EntitySet="CustomerProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Staff" Association="Self.FK_Invoice_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Template" Association="Self.FK_Invoice_Template">
+            <End Role="Template" EntitySet="Template" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Product" Association="Self.FK_InvoiceItem_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Company" Association="Self.FK_Product_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoice_Customer" Association="Self.FK_ProformaInvoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ProformaInvoice" EntitySet="ProformaInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoice_Staff" Association="Self.FK_ProformaInvoice_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="ProformaInvoice" EntitySet="ProformaInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoiceItem_Product" Association="Self.FK_ProformaInvoiceItem_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProformaInvoiceItem" EntitySet="ProformaInvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoiceItem_ProformaInvoice" Association="Self.FK_ProformaInvoiceItem_ProformaInvoice">
+            <End Role="ProformaInvoice" EntitySet="ProformaInvoice" />
+            <End Role="ProformaInvoiceItem" EntitySet="ProformaInvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_AspNetUsers" Association="Self.FK_Staff_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Company" Association="Self.FK_Staff_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Company" Association="Self.FK_Template_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Template" EntitySet="Template" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Company" Association="Self.FK_Transaction_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Customer" Association="Self.FK_Transaction_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HiEISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HiEISEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="HiEISModel.AspNetRole" />
+          <EntitySet Name="AspNetUsers" EntityType="HiEISModel.AspNetUser" />
+          <EntitySet Name="Companies" EntityType="HiEISModel.Company" />
+          <EntitySet Name="CompanyCustomers" EntityType="HiEISModel.CompanyCustomer" />
+          <EntitySet Name="Customers" EntityType="HiEISModel.Customer" />
+          <EntitySet Name="CustomerProducts" EntityType="HiEISModel.CustomerProduct" />
+          <EntitySet Name="Invoices" EntityType="HiEISModel.Invoice" />
+          <EntitySet Name="InvoiceItems" EntityType="HiEISModel.InvoiceItem" />
+          <EntitySet Name="Products" EntityType="HiEISModel.Product" />
+          <EntitySet Name="ProformaInvoices" EntityType="HiEISModel.ProformaInvoice" />
+          <EntitySet Name="ProformaInvoiceItems" EntityType="HiEISModel.ProformaInvoiceItem" />
+          <EntitySet Name="Staffs" EntityType="HiEISModel.Staff" />
+          <EntitySet Name="Templates" EntityType="HiEISModel.Template" />
+          <EntitySet Name="Transactions" EntityType="HiEISModel.Transaction" />
+          <AssociationSet Name="FK_Customer_AspNetUsers" Association="HiEISModel.FK_Customer_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_AspNetUsers" Association="HiEISModel.FK_Staff_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyCustomer_Company" Association="HiEISModel.FK_CompanyCustomer_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="CompanyCustomer" EntitySet="CompanyCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Company" Association="HiEISModel.FK_Product_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Company" Association="HiEISModel.FK_Staff_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Company" Association="HiEISModel.FK_Template_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Template" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Company" Association="HiEISModel.FK_Transaction_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyCustomer_Customer1" Association="HiEISModel.FK_CompanyCustomer_Customer1">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CompanyCustomer" EntitySet="CompanyCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerProduct_Customer" Association="HiEISModel.FK_CustomerProduct_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerProduct" EntitySet="CustomerProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Customer" Association="HiEISModel.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoice_Customer" Association="HiEISModel.FK_ProformaInvoice_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ProformaInvoice" EntitySet="ProformaInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Customer" Association="HiEISModel.FK_Transaction_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerProduct_Product" Association="HiEISModel.FK_CustomerProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CustomerProduct" EntitySet="CustomerProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Staff" Association="HiEISModel.FK_Invoice_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Template" Association="HiEISModel.FK_Invoice_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="HiEISModel.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Product" Association="HiEISModel.FK_InvoiceItem_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoiceItem_Product" Association="HiEISModel.FK_ProformaInvoiceItem_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProformaInvoiceItem" EntitySet="ProformaInvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoice_Staff" Association="HiEISModel.FK_ProformaInvoice_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="ProformaInvoice" EntitySet="ProformaInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProformaInvoiceItem_ProformaInvoice" Association="HiEISModel.FK_ProformaInvoiceItem_ProformaInvoice">
+            <End Role="ProformaInvoice" EntitySet="ProformaInvoices" />
+            <End Role="ProformaInvoiceItem" EntitySet="ProformaInvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="HiEISModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EnumType Name="InvoiceStatus" UnderlyingType="Int32">
+          <Member Name="Entered" Value="1" />
+          <Member Name="WaitingOnApproval" Value="2" />
+          <Member Name="Approved" Value="3" />
+        </EnumType>
+        <EnumType Name="ProformaInvoiceStatus">
+          <Member Name="WaitingOnApproval" Value="1" />
+          <Member Name="Approved" Value="2" />
+        </EnumType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="HiEISModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="HiEISModel.FK_Customer_AspNetUsers" FromRole="AspNetUser" ToRole="Customer" />
+          <NavigationProperty Name="Staff" Relationship="HiEISModel.FK_Staff_AspNetUsers" FromRole="AspNetUser" ToRole="Staff" />
+          <NavigationProperty Name="AspNetRoles" Relationship="HiEISModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaxNo" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CodeGuid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompanyCustomers" Relationship="HiEISModel.FK_CompanyCustomer_Company" FromRole="Company" ToRole="CompanyCustomer" />
+          <NavigationProperty Name="Products" Relationship="HiEISModel.FK_Product_Company" FromRole="Company" ToRole="Product" />
+          <NavigationProperty Name="Staffs" Relationship="HiEISModel.FK_Staff_Company" FromRole="Company" ToRole="Staff" />
+          <NavigationProperty Name="Templates" Relationship="HiEISModel.FK_Template_Company" FromRole="Company" ToRole="Template" />
+          <NavigationProperty Name="Transactions" Relationship="HiEISModel.FK_Transaction_Company" FromRole="Company" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="CompanyCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CustomerId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Liabilities" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Company" Relationship="HiEISModel.FK_CompanyCustomer_Company" FromRole="CompanyCustomer" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="HiEISModel.FK_CompanyCustomer_Customer1" FromRole="CompanyCustomer" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Enterprise" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxNo" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Bank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="HiEISModel.FK_Customer_AspNetUsers" FromRole="Customer" ToRole="AspNetUser" />
+          <NavigationProperty Name="CompanyCustomers" Relationship="HiEISModel.FK_CompanyCustomer_Customer1" FromRole="Customer" ToRole="CompanyCustomer" />
+          <NavigationProperty Name="CustomerProducts" Relationship="HiEISModel.FK_CustomerProduct_Customer" FromRole="Customer" ToRole="CustomerProduct" />
+          <NavigationProperty Name="Invoices" Relationship="HiEISModel.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
+          <NavigationProperty Name="ProformaInvoices" Relationship="HiEISModel.FK_ProformaInvoice_Customer" FromRole="Customer" ToRole="ProformaInvoice" />
+          <NavigationProperty Name="Transactions" Relationship="HiEISModel.FK_Transaction_Customer" FromRole="Customer" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="CustomerProduct">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="CustomerId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="HiEISModel.FK_CustomerProduct_Customer" FromRole="CustomerProduct" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="HiEISModel.FK_CustomerProduct_Product" FromRole="CustomerProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LookupCode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentMethod" Type="Int32" Nullable="false" />
+          <Property Name="FileUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="VATRate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="VATAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AmountInWords" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Enterprise" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxNo" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Bank" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <Property Name="StaffId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CodeGuid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="HiEISModel.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
+          <NavigationProperty Name="Staff" Relationship="HiEISModel.FK_Invoice_Staff" FromRole="Invoice" ToRole="Staff" />
+          <NavigationProperty Name="Template" Relationship="HiEISModel.FK_Invoice_Template" FromRole="Invoice" ToRole="Template" />
+          <NavigationProperty Name="InvoiceItems" Relationship="HiEISModel.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="VATRate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Invoice" Relationship="HiEISModel.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
+          <NavigationProperty Name="Product" Relationship="HiEISModel.FK_InvoiceItem_Product" FromRole="InvoiceItem" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="VATRate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="HasIndex" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="HiEISModel.FK_Product_Company" FromRole="Product" ToRole="Company" />
+          <NavigationProperty Name="CustomerProducts" Relationship="HiEISModel.FK_CustomerProduct_Product" FromRole="Product" ToRole="CustomerProduct" />
+          <NavigationProperty Name="InvoiceItems" Relationship="HiEISModel.FK_InvoiceItem_Product" FromRole="Product" ToRole="InvoiceItem" />
+          <NavigationProperty Name="ProformaInvoiceItems" Relationship="HiEISModel.FK_ProformaInvoiceItem_Product" FromRole="Product" ToRole="ProformaInvoiceItem" />
+        </EntityType>
+        <EntityType Name="ProformaInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LookupCode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FileUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentDeadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="VATAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TotalNoLiabilities" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="StaffId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Liabilities" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Customer" Relationship="HiEISModel.FK_ProformaInvoice_Customer" FromRole="ProformaInvoice" ToRole="Customer" />
+          <NavigationProperty Name="Staff" Relationship="HiEISModel.FK_ProformaInvoice_Staff" FromRole="ProformaInvoice" ToRole="Staff" />
+          <NavigationProperty Name="ProformaInvoiceItems" Relationship="HiEISModel.FK_ProformaInvoiceItem_ProformaInvoice" FromRole="ProformaInvoice" ToRole="ProformaInvoiceItem" />
+        </EntityType>
+        <EntityType Name="ProformaInvoiceItem">
+          <Key>
+            <PropertyRef Name="ProformaInvoiceId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProformaInvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="VATRate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="OldNumber" Type="Int32" />
+          <Property Name="NewNumber" Type="Int32" />
+          <Property Name="DateFrom" Type="DateTime" Precision="0" />
+          <Property Name="DateTo" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Product" Relationship="HiEISModel.FK_ProformaInvoiceItem_Product" FromRole="ProformaInvoiceItem" ToRole="Product" />
+          <NavigationProperty Name="ProformaInvoice" Relationship="HiEISModel.FK_ProformaInvoiceItem_ProformaInvoice" FromRole="ProformaInvoiceItem" ToRole="ProformaInvoice" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="HiEISModel.FK_Staff_AspNetUsers" FromRole="Staff" ToRole="AspNetUser" />
+          <NavigationProperty Name="Company" Relationship="HiEISModel.FK_Staff_Company" FromRole="Staff" ToRole="Company" />
+          <NavigationProperty Name="Invoices" Relationship="HiEISModel.FK_Invoice_Staff" FromRole="Staff" ToRole="Invoice" />
+          <NavigationProperty Name="ProformaInvoices" Relationship="HiEISModel.FK_ProformaInvoice_Staff" FromRole="Staff" ToRole="ProformaInvoice" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Form" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Serial" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="FileUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="BeginNo" Type="Int32" Nullable="false" />
+          <Property Name="CurrentNo" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReleaseAnnouncementUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="HiEISModel.FK_Template_Company" FromRole="Template" ToRole="Company" />
+          <NavigationProperty Name="Invoices" Relationship="HiEISModel.FK_Invoice_Template" FromRole="Template" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CustomerId" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="HiEISModel.FK_Transaction_Company" FromRole="Transaction" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="HiEISModel.FK_Transaction_Customer" FromRole="Transaction" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_Customer_AspNetUsers">
+          <End Type="HiEISModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="HiEISModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_AspNetUsers">
+          <End Type="HiEISModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="HiEISModel.Staff" Role="Staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyCustomer_Company">
+          <End Type="HiEISModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="HiEISModel.CompanyCustomer" Role="CompanyCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyCustomer">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Company">
+          <End Type="HiEISModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="HiEISModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Company">
+          <End Type="HiEISModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="HiEISModel.Staff" Role="Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Company">
+          <End Type="HiEISModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="HiEISModel.Template" Role="Template" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Template">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Company">
+          <End Type="HiEISModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="HiEISModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyCustomer_Customer1">
+          <End Type="HiEISModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HiEISModel.CompanyCustomer" Role="CompanyCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerProduct_Customer">
+          <End Type="HiEISModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HiEISModel.CustomerProduct" Role="CustomerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerProduct">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Customer">
+          <End Type="HiEISModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="HiEISModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoice_Customer">
+          <End Type="HiEISModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HiEISModel.ProformaInvoice" Role="ProformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Customer">
+          <End Type="HiEISModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="HiEISModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerProduct_Product">
+          <End Type="HiEISModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="HiEISModel.CustomerProduct" Role="CustomerProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Staff">
+          <End Type="HiEISModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="HiEISModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Template">
+          <End Type="HiEISModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="HiEISModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Type="HiEISModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="HiEISModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Product">
+          <End Type="HiEISModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="HiEISModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoiceItem_Product">
+          <End Type="HiEISModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="HiEISModel.ProformaInvoiceItem" Role="ProformaInvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoiceItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoice_Staff">
+          <End Type="HiEISModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="HiEISModel.ProformaInvoice" Role="ProformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoice">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProformaInvoiceItem_ProformaInvoice">
+          <End Type="HiEISModel.ProformaInvoice" Role="ProformaInvoice" Multiplicity="1" />
+          <End Type="HiEISModel.ProformaInvoiceItem" Role="ProformaInvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProformaInvoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProformaInvoiceItem">
+              <PropertyRef Name="ProformaInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="HiEISModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="HiEISModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HiEISModelStoreContainer" CdmEntityContainer="HiEISEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="HiEISModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="HiEISModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="HiEISModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CodeGuid" ColumnName="CodeGuid" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TaxNo" ColumnName="TaxNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyCustomers">
+            <EntityTypeMapping TypeName="HiEISModel.CompanyCustomer">
+              <MappingFragment StoreEntitySet="CompanyCustomer">
+                <ScalarProperty Name="Liabilities" ColumnName="Liabilities" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="HiEISModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="TaxNo" ColumnName="TaxNo" />
+                <ScalarProperty Name="Enterprise" ColumnName="Enterprise" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerProducts">
+            <EntityTypeMapping TypeName="HiEISModel.CustomerProduct">
+              <MappingFragment StoreEntitySet="CustomerProduct">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="HiEISModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="CodeGuid" ColumnName="CodeGuid" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="TaxNo" ColumnName="TaxNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Enterprise" ColumnName="Enterprise" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="AmountInWords" ColumnName="AmountInWords" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="FileUrl" ColumnName="FileUrl" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="LookupCode" ColumnName="LookupCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceItems">
+            <EntityTypeMapping TypeName="HiEISModel.InvoiceItem">
+              <MappingFragment StoreEntitySet="InvoiceItem">
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="HiEISModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="HasIndex" ColumnName="HasIndex" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProformaInvoices">
+            <EntityTypeMapping TypeName="HiEISModel.ProformaInvoice">
+              <MappingFragment StoreEntitySet="ProformaInvoice">
+                <ScalarProperty Name="Liabilities" ColumnName="Liabilities" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TotalNoLiabilities" ColumnName="TotalNoLiabilities" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PaymentDeadline" ColumnName="PaymentDeadline" />
+                <ScalarProperty Name="FileUrl" ColumnName="FileUrl" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LookupCode" ColumnName="LookupCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProformaInvoiceItems">
+            <EntityTypeMapping TypeName="HiEISModel.ProformaInvoiceItem">
+              <MappingFragment StoreEntitySet="ProformaInvoiceItem">
+                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+                <ScalarProperty Name="NewNumber" ColumnName="NewNumber" />
+                <ScalarProperty Name="OldNumber" ColumnName="OldNumber" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProformaInvoiceId" ColumnName="ProformaInvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="HiEISModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="HiEISModel.Template">
+              <MappingFragment StoreEntitySet="Template">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ReleaseAnnouncementUrl" ColumnName="ReleaseAnnouncementUrl" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="CurrentNo" ColumnName="CurrentNo" />
+                <ScalarProperty Name="BeginNo" ColumnName="BeginNo" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="FileUrl" ColumnName="FileUrl" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Form" ColumnName="Form" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="HiEISModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="HiEISModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

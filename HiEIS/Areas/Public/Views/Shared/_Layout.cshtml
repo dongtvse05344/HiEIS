@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - HiEIS</title>
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+
+    @using HiEIS.Utils
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <div class="profile-img">
+                                <img alt="image" class="img-circle" src="~/Content/img/default-user.png" />
+                            </div>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">@User.Identity.Name</strong>
+                                    </span> <span class="text-muted text-xs block">
+                                        @if (User.IsInRole(HiEISUtil.RoleManager))
+                                        {
+                                            <i style="font-style: normal;">Quản lý</i>
+                                        }
+                                        else if (User.IsInRole(HiEISUtil.RoleAccountingManager)
+                                            || User.IsInRole(HiEISUtil.RoleLiabilityAccountant)
+                                            || User.IsInRole(HiEISUtil.RolePayableAccountant))
+                                        {
+                                            <i style="font-style: normal;">Kế toán</i>
+                                        }
+                                        else
+                                        {
+                                            <i style="font-style: normal;">Khách hàng</i>
+                                        }
+                                        <b class="caret"></b>
+                                    </span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="@Url.Action("Index", "Account")">Tài khoản</a></li>
+                                <li><a href="@Url.Action("ChangePassword", "Account", new { url = Request.Url.AbsolutePath })">Thay đổi mật khẩu</a></li>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Đăng xuất", "Logoff", "Account", new { area = "" }, null)</li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            HiEIS
+                        </div>
+                    </li>
+                    @if (User.IsInRole(HiEISUtil.RoleManager))
+                    {
+                        <li data-group="staffs">
+                            <a href="@Url.Action("Index", "Staffs")" class="menu-item">
+                                <i class="fa fa-vcard"></i>
+                                <span class="nav-label">Nhân viên</span>
+                            </a>
+                        </li>
+                        <li data-group="customer">
+                            <a href="@Url.Action("Index", "Customer")" class="menu-item">
+                                <i class="fa fa-users"></i>
+                                <span class="nav-label">Khách hàng</span>
+                            </a>
+                        </li>
+                        <li data-group="products">
+                            <a href="@Url.Action("Index", "Products")" class="menu-item">
+                                <i class="fa fa-archive"></i>
+                                <span class="nav-label">Sản phẩm</span>
+                            </a>
+                        </li>
+                        <li data-group="templates">
+                            <a href="@Url.Action("Index", "Templates")" class="menu-item">
+                                <i class="fa fa-file-text-o"></i>
+                                <span class="nav-label">Mẫu hóa đơn</span>
+                            </a>
+                        </li>
+                    }
+                    @if (User.IsInRole(HiEISUtil.RoleAccountingManager)
+                        || User.IsInRole(HiEISUtil.RoleLiabilityAccountant)
+                        || User.IsInRole(HiEISUtil.RolePayableAccountant)
+                        || User.IsInRole(HiEISUtil.RoleCustomer))
+                    {
+                        <li data-group="invoices">
+                            <a href="@Url.Action("Index", "Invoices")" class="menu-item">
+                                <i class="fa fa-list-alt"></i>
+                                <span class="nav-label">Hóa đơn</span>
+                            </a>
+                        </li>
+                        <li data-group="proformainvoice">
+                            <a href="@Url.Action("Index", "ProformaInvoice")" class="menu-item">
+                                <i class="fa fa-table"></i>
+                                <span class="nav-label">Thông báo phí</span>
+                            </a>
+                        </li>
+                        <li data-group="liabilities">
+                            <a href="@Url.Action("Index", "Liabilities")" class="menu-item">
+                                <i class="fa fa-tasks"></i>
+                                <span class="nav-label">Công nợ</span>
+                            </a>
+                        </li>
+                    }
+
+
+                </ul>
+
+            </div>
+        </nav>
+
+
+        <div id="page-wrapper" class="gray-bg">
+            <!-- Navbar top -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">HiEIS CMS</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Logoff", "Account", new { area = "" })">
+                                <i class="fa fa-sign-out"></i> Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Page heading -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12">
+                    <h2>@ViewBag.Title</h2>
+                </div>
+            </div>
+
+            <!-- TO-DO -->
+            @RenderBody()
+
+            <!-- Page footer -->
+            <div class="footer">
+                <div>
+                    <strong>Copyright</strong> HiEIS &copy; @DateTime.Now.Year
+                </div>
+            </div><!-- /Page footer -->
+
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/javascript")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

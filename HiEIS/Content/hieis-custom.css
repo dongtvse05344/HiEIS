@@ -1,0 +1,477 @@
+/*
+    General
+*/
+.fa {
+    font-size: 18px;
+}
+
+.main-action i.fa {
+    margin-right: 5px;
+}
+
+.wrapper-content {
+    margin: 0 auto;
+}
+
+label {
+    font-weight: normal;
+}
+
+.ibox .label {
+    font-size: 13px;
+    background: none;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.label-warning {
+    color: #f8ac59;
+    border-color: #f8ac59;
+}
+
+.label-primary {
+    color: #1ab394;
+    border-color: #1ab394;
+}
+
+.label-info {
+    color: #23c6c8;
+    border-color: #23c6c8;
+}
+
+.role-list {
+    padding-left: 18px;
+}
+
+.field-validation-error, .amount-error, .custom-error, .error-roles {
+    color: red;
+}
+
+.my-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+    .my-tooltip .tooltip-text {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        /*margin-left: -60px;*/
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-weight: normal;
+    }
+    .my-tooltip.small-tooltip .tooltip-text {
+        width: auto;
+    }
+    .my-tooltip.center .tooltip-text {
+        left: 0;
+    }
+
+    .my-tooltip.right .tooltip-text {
+        right: -5px;
+    }
+
+    .my-tooltip .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .my-tooltip.center .tooltip-text::after {
+        left: 50%;
+    }
+
+    .my-tooltip.right .tooltip-text::after {
+        right: 13px;
+    }
+
+    .my-tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+
+/*
+    Layout menu
+*/
+.navbar-fixed-top {
+    background: rgba(243, 243, 244, .9);
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover {
+    background: #1ab394;
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #676a6c;
+    font-size: 16px;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover, .nav.navbar-top-links > li > a:hover {
+        color: #1ab394;
+    }
+
+.navbar-inverse .navbar-toggle {
+    border: none;
+    padding: 10px 12px;
+}
+
+.navbar-inverse .navbar-collapse {
+    border: none;
+}
+
+.profile-img {
+    width: 48px;
+    height: 48px;
+}
+
+    .profile-img img {
+        width: 100%;
+    }
+/*
+    Table
+*/
+table th {
+    text-align: left !important;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.table-custom td:first-child {
+    width: 20%;
+}
+
+.table-custom td:last-child {
+    width: 15%;
+}
+
+#staff-account-table td:first-child {
+    width: 15%;
+}
+
+#invoice-table td:last-child {
+    width: 16%;
+}
+
+.table-action .link {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0 3px;
+    outline: none;
+}
+
+    .table-action .link i.fa {
+        color: #18a689;
+        font-size: 24px;
+    }
+
+    .table-action .link.disabled {
+        pointer-events: none;
+    }
+
+        .table-action .link.disabled i.fa {
+            color: #aca9a9;
+        }
+
+
+.table.table-no-striped > tbody > tr > td {
+    border: none;
+}
+
+.table.table-no-striped span {
+    float: right;
+}
+
+.table-search-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.filter::before {
+    position: absolute;
+    top: -20px;
+    font-size: 12px;
+}
+
+.payment::before {
+    content: 'Thanh toán';
+}
+
+.status::before {
+    content: 'Trạng thái';
+}
+
+.price::before {
+    content: 'Đơn giá';
+}
+
+.liabilities:before {
+    content: 'Tổng nợ';
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+#invoice-item-table {
+    margin-top: 20px;
+}
+
+    #invoice-item-table th, #invoice-item-table td {
+        text-align: center !important;
+        vertical-align: middle;
+    }
+
+        #invoice-item-table td:nth-child(2) {
+            text-align: left !important;
+        }
+
+    #invoice-item-table .quantity, #invoice-item-table .unit-price {
+        width: 150px;
+    }
+/*
+    Input
+*/
+.small-form {
+    width: 50%;
+}
+
+.input-table {
+    width: 100%;
+}
+
+    .input-table td, .input-table .row {
+        padding-bottom: 10px;
+    }
+
+    .input-table .input-label {
+        line-height: 34px;
+    }
+
+.input-required::after {
+    color: red;
+    content: ' *';
+}
+
+.delete-form {
+    display: inline;
+}
+
+textarea {
+    resize: none;
+}
+
+.twitter-typeahead {
+    width: 100%;
+}
+/*
+    Login
+*/
+.login-background {
+    background: url('img/workspace-1.jpg');
+}
+
+    .login-background .logo-name {
+        font-size: 135px;
+        color: #1ab394;
+        margin-top: 0;
+    }
+
+.loginColumns {
+    margin: auto;
+    padding: 0;
+}
+
+.full-background {
+    background-size: cover !important;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.middle-box {
+    margin: 0 auto;
+    height: 100%;
+}
+
+    .middle-box > div {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+/*
+    Lookup Index page
+*/
+.lookup-background {
+    background: url('img/workspace-4.jpg');
+}
+
+.lookup-box {
+    width: 40%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 200px 0;
+}
+
+.lookup-title {
+    margin: 0 auto;
+    color: #1ab394;
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+#lookup-tabs {
+    margin-bottom: 50px;
+}
+
+.nav-tabs > li > a {
+    color: #676a6c;
+    font-size: 16px;
+}
+
+    .nav-tabs > li > a:hover {
+        border: 1px solid #eee;
+    }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border: none;
+    border-bottom: 3px solid #1ab394;
+}
+
+#lookup-tabs .nav-tabs {
+    border: none;
+}
+
+#lookup-tabs ul li {
+    display: inline-block;
+    float: none;
+}
+
+#lookup-tabs .tab-content {
+    margin-top: 20px;
+}
+
+.lookup-input {
+    width: 100%;
+}
+
+    .lookup-input input {
+        width: 100%;
+        border: 1px solid #e5e6e7;
+        padding: 11px;
+        font-size: 14px;
+    }
+
+        .lookup-input input:focus {
+            outline: none;
+            border-color: #1ab394;
+        }
+
+    .lookup-input .lookup-btn {
+        display: block;
+        width: 100%;
+        padding: 11px;
+        text-align: center;
+        color: white;
+        background: #1ab394;
+        font-size: 16px;
+    }
+
+    .lookup-input .left {
+        width: 75%;
+        display: inline-block;
+    }
+
+    .lookup-input .right {
+        width: 25%;
+        display: inline-block;
+    }
+
+    .lookup-input a {
+        width: 100%;
+    }
+
+/*
+    Tạo doanh nghiệp
+*/
+.company-form .left {
+    width: 75%;
+    float: left;
+}
+
+.company-form .right {
+    width: 25%;
+    float: left;
+}
+
+    .company-form .right .btn {
+        width: 100%;
+    }
+/*
+    Modal
+*/
+.modal-dialog-centered {
+    position: absolute;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0;
+}
+
+@media (max-width: 1200px) {
+    .input-table td {
+        width: 100%;
+        display: block;
+    }
+}
+
+@media (max-width: 900px) {
+    .small-form {
+        width: 100%;
+    }
+
+    .lookup-box {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container > .navbar-header {
+        display: block;
+        float: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 900px;
+        /*position: absolute;
+        left: 50%;
+        transform: translateX(-50%) !important;*/
+    }
+
+        .modal-dialog.modal-sm {
+            width: 500px;
+        }
+}

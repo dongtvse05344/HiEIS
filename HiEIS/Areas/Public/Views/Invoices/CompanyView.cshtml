@@ -1,0 +1,393 @@
+﻿
+@{
+    ViewBag.Title = "Hóa đơn";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight invoice">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Danh sách hóa đơn</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content">
+                    <!-- Search group -->
+                    <div class="row table-search-group">
+                        <div class="col-md-3">
+                            <input id="search-name" class="form-control" placeholder="Khách hàng">
+                        </div>
+                        <div class="col-md-2">
+                            <input id="search-code" class="form-control" placeholder="Mã tra cứu">
+                        </div>
+                        <div class="col-md-3">
+                            <div id="search-date" class="input-daterange input-group">
+                                <input id="min" type="text" class="input-sm form-control" name="min" placeholder="dd/mm/yyyy" />
+                                <span class="input-group-addon">đến</span>
+                                <input id="max" type="text" class="input-sm form-control" name="max" placeholder="dd/mm/yyyy" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="filter payment">
+                                <select id="search-payment" class="form-control m-b">
+                                    <option value="">Tất cả</option>
+                                    <option value="1">Đã thanh toán</option>
+                                    <option value="0">Chưa thanh toán</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="filter status">
+                                <select id="search-status" class="form-control m-b">
+                                    <option value="">Tất cả</option>
+                                    <option value="1">Mới tạo</option>
+                                    <option value="2">Chờ ký</option>
+                                    <option value="3">Đã ký</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button group -->
+                    <div class="row table-button-group">
+                        <div class="col-md-6 left"></div>
+                        <div class="col-md-6 right text-right">
+
+                            @using HiEIS.Utils;
+                            @{
+                                if (User.IsInRole(HiEISUtil.RoleLiabilityAccountant)
+                                    || User.IsInRole(HiEISUtil.RolePayableAccountant))
+                                {
+                                    <a href=@Url.Action("Create", "Invoices") class="btn btn-primary main-action">
+                                        <i class="fa fa-plus"></i>Tạo hóa đơn
+                                    </a>
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+                    <!-- Main table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-custom" id="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Khách hàng</th>
+                                    <th>Mã tra cứu</th>
+                                    <th>
+                                        Mẫu số<br>Ký hiệu
+                                    </th>
+                                    <th>Số</th>
+                                    <th>Thanh toán</th>
+                                    <th>Ngày</th>
+                                    <th>Hạn thanh toán</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Khách hàng</th>
+                                    <th>Mã tra cứu</th>
+                                    <th>
+                                        Mẫu Số<br>Ký hiệu
+                                    </th>
+                                    <th>Số</th>
+                                    <th>Thanh toán</th>
+                                    <th>Ngày</th>
+                                    <th>Hạn thanh toán</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /Main table -->
+                    <!-- Pagination -->
+                    <div class="row table-pagination">
+                        <div class="col-sm-7 left"></div>
+                        <div class="col-sm-5 right"></div>
+                    </div>
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <embed src="" frameborder="0" width="100%" height="500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-email" class="modal bs-example-modal-sm fade" tabindex="-1" role="dialog" aria-labelledby="myFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Gửi hóa đơn</h4>
+            </div>
+            <div class="modal-body">
+                <table class="input-table">
+                    <tr>
+                        <td>Email</td>
+                        <td><input class="form-control" type="email" required id="customer-email" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a id="send-email" class="btn btn-primary" data-id="">Gửi</a>
+                <a data-dismiss="modal" class="btn btn-default">Đóng</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
+
+<template id="template-table-action">
+    <div>
+        @if (User.IsInRole(HiEISUtil.RoleLiabilityAccountant)
+        || User.IsInRole(HiEISUtil.RolePayableAccountant))
+        {
+            <a class="link js-edit" href="@Url.Action("Edit", "Invoices")">
+                <span class="my-tooltip center small-tooltip">
+                    <i class="fa fa-pencil"></i>
+                    <b class="tooltip-text">Sửa</b>
+                </span>
+            </a>
+            <a data-id="" class="link js-delete">
+                <span class="my-tooltip center small-tooltip">
+                    <i class="fa fa-trash"></i>
+                    <b class="tooltip-text">Xóa</b>
+                </span>
+            </a>
+        }
+        @if (User.IsInRole(HiEISUtil.RolePayableAccountant))
+        {
+            <a class="link js-confirm-payment"
+               data-id="">
+                <span class="my-tooltip center">
+                    <i class="fa fa-check"></i>
+                    <b class="tooltip-text">Xác nhận thanh toán</b>
+                </span>
+            </a>
+        }
+        @*@if (User.IsInRole(HiEISUtil.RoleAccountingManager))
+        {
+            <a class="link js-sign"
+               data-id="">
+                <span class="my-tooltip right">
+                    <i class="fa fa-check-square-o"></i>
+                    <b class="tooltip-text">Ký và phát hành</b>
+                </span>
+            </a>
+        }*@
+            <a class="link js-send-email"
+               data-id="">
+                <span class="my-tooltip right">
+                    <i class="fa fa-send"></i>
+                    <b class="tooltip-text">Gửi mã tra cứu</b>
+                </span>
+            </a>
+
+    </div>
+</template>
+
+@section scripts {
+    <script>
+        APP_PUBLIC.ManageInvoices = function () {
+            const INVOICE_STATUS = {
+                '1': 'Mới tạo',
+                '2': 'Chờ ký',
+                '3': 'Đã ký',
+            }
+            const STATUS_CLASSES = {
+                '1': 'label-info',
+                '2': 'label-warning',
+                '3': 'label-primary'
+            }
+            const PAYMENT_STATUS = {
+                'true': 'Đã thanh toán',
+                'false': 'Chưa thanh toán'
+            }
+
+            // DATATABLE
+            var initDataTable = function () {
+                var tableId = '#invoice-table';
+                var container = '.invoice';
+                var downloadOptions = [
+                    {
+                        extend: 'copy'
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Hóa đơn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Hóa đơn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }
+                ];
+
+                // enable filter with column index
+                var filterOptions = {
+                    payment: 4,
+                    date: 5,
+                    status: 7
+                }
+
+                var ajaxUrl = '/Public/Invoices/GetInvoices';
+                var columnOptions = [
+                    { data: null },
+                    { data: null },
+                    {
+                        data: 'TemplateForm',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            return data + '<br/>' + row['TemplateSerial'];
+                        }
+                    },
+                    {
+                        data: 'Number',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'PaymentStatus',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            return PAYMENT_STATUS[data.toString()];
+                        }
+                    },
+                    {
+                        data: 'Date',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            return moment(data).format('DD/MM/YYYY');
+                        }
+                    },
+                    {
+                        data: 'DueDate',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            if (data == null || data == "") {
+                                return "";
+                            }
+                            return moment(data).format('DD/MM/YYYY');
+                        }
+                    },
+                    {
+                        data: 'Status',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            return '<span class="label '
+                                + STATUS_CLASSES[data.toString()]
+                                + '">'
+                                + INVOICE_STATUS[data.toString()]
+                                + '</span>';
+                        }
+                    },
+                    { data: null }
+                ];
+
+                var columnDefOptions = [
+                    {
+                        targets: 0,
+                        render: function (data, type, row) {
+                            var text = '';
+                            if (row['CustomerName'] != null) {
+                                text = '<b>' + row['CustomerName'] + '</b><br>'
+                                    + row['CustomerEnterprise'];
+                            }
+                            else {
+                                text = (row['Name'] == null ? "" : ('<b>' + row['Name'] + '</b><br>'))
+                                    + (row['Enterprise'] == null ? row['Address'] : row['Enterprise']);
+                            }
+                            return text;
+                        }
+                    },
+                    {
+                        targets: 1,
+                        render: function (data, type, row) {
+                            var text = '<a class="js-pdf" data-file-url="'
+                                + row['FileUrl']
+                                + '" data-toggle="modal" href="#modal-form" data-modal-link="">'
+                                + row['LookupCode']
+                                + "</a>";
+                            return text;
+                        }
+                    },
+                    {
+                        targets: -1, //last column
+                        className: 'table-action text-center',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            var status = row['Status'];
+                            var actionTemplate = $('#template-table-action').html();
+                            actionTemplate = $(actionTemplate);
+                            actionTemplate.find('.link').attr('data-id', row.Id);
+                            if (actionTemplate.find('.js-edit').length > 0) {
+                                var href = actionTemplate.find('.js-edit').attr('href');
+                                href += '/' + row.Id;
+                                actionTemplate.find('.js-edit').attr('href', href)
+                            }
+                            if (status === 2 || status === 3) {
+                                actionTemplate.find('.js-edit, .js-delete, .js-confirm-payment').addClass("disabled");
+                            }
+                            //if (status === 1 || status === 3) {
+                            //    actionTemplate.find('.js-sign').addClass("disabled");
+                            //}
+
+                            return actionTemplate.html();
+                        }
+                    }
+                ];
+
+                APP_PUBLIC.DataTableCustom.initDataTable(tableId, container, downloadOptions, filterOptions, ajaxUrl, columnOptions, columnDefOptions);
+            }
+            // end DATATABLE
+
+            return {
+                init: initDataTable
+            }
+
+        }();
+
+        $(document).ready(function (e) {
+            toastr.options = {
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 1200
+            };
+
+            var jsMessage = sessionStorage['message'];
+            if (jsMessage != undefined) {
+                toastr.success(jsMessage, "Thành công");
+                sessionStorage.clear();
+            }
+            
+        });
+    </script>
+
+    <script src="~/Scripts/hieis-invoice.js"></script>
+    <script src="~/Scripts/hieis-tooltip.js"></script>
+}

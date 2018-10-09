@@ -1,0 +1,128 @@
+﻿@model HiEIS.Models.CreateCompanyModel
+@{
+    ViewBag.Title = "Tạo doanh nghiệp";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight small-form">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin doanh nghiệp</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content company-form">
+
+                    <table class="input-table">
+                        <tr>
+                            <td>
+                                <span class="input-required">Mã số thuế</span>
+                            </td>
+                            <td>
+                                <div class="left">
+                                    @Html.TextBoxFor(p => p.TaxNo, new { @class = "form-control" })
+                                    <span class="field-validation-error"></span>
+                                </div>
+                                <div class="right">
+                                    <a id="btn-tax-no" class="btn btn-primary">Lấy MST</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Tên doanh nghiệp</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Địa chỉ</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Address, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Số điện thoại</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Tel, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Email</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Email, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Website
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Website, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Fax
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Fax, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Ngân hàng
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Bank, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Số TK
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.BankAccountNumber, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="color: red">* Bắt buộc</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="submit" class="btn btn-primary js-create">Lưu</button>
+                                @Html.ActionLink("Quay lại", "Index", "Company", null, new { @class = "btn btn-default" })
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+@section scripts {
+    <script src="~/Scripts/hieis-company-input.js"></script>
+}

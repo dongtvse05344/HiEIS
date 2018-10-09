@@ -1,0 +1,47 @@
+﻿@model HiEIS.Areas.Public.Models.ProformaViewPDF
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thông báo phát hành thông báo phí</title>
+    <style>
+        #invoice-email span {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+            #invoice-email span.attention {
+                color: #1ab394;
+            }
+    </style>
+</head>
+<body>
+
+    <div id="invoice-email">
+        <strong>Kính gửi Quý khách @Model.CustomerEnterprise</strong>
+        <p>
+            @Model.StaffCompanyName vừa phát hành thông báo phí tháng @Model.Date.ToString("MM")/@Model.Date.ToString("yyyy")
+            đến Quý khách với thông tin chi tiết như sau:
+            <ul>
+                <li>Mã tra cứu: <span class="attention">@Model.LookupCode</span></li>
+                <li>Tổng số tiền cần thanh toán: <span class="attention">@Model.Total.ToString("#,##0") VNĐ</span></li>
+                <li>Hạn thanh tóan: <span class="attention">@Model.PaymentDeadline.ToString("dd/MM/yyyy")</span></li>
+            </ul>
+            Quý khách vui lòng truy cập <a href="@Url.Action("Lookup", "Home", new { Area = "" }, Request.Url.Scheme)">link</a> để xem
+            và kiểm tra thông báo phí.<br /><br />
+
+            Trân trọng cảm ơn<br />
+            <strong>HiEIS</strong><br /><br />
+
+            <b>Lưu ý</b>: Thư này được gửi tự động từ đia chỉ của hệ thống. Xin Quý khách vui lòng không gửi lại vào địa chỉ này!
+        </p>
+
+    </div>
+
+</body>
+</html>

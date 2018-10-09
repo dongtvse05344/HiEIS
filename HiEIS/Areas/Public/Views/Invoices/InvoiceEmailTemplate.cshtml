@@ -1,0 +1,48 @@
+﻿@model HiEIS.Areas.Public.Models.PdfViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thông báo phát hành hóa đơn điện tử</title>
+    <style>
+        #invoice-email span {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+            #invoice-email span.attention {
+                color: #1ab394;
+            }
+    </style>
+</head>
+<body>
+
+    <div id="invoice-email">
+        <strong>Kính gửi Quý khách</strong>
+        <p>
+            @Model.StaffCompanyName (MST: @Model.StaffCompanyTaxNo) vừa phát hành
+            hóa đơn điện tử đến Quý khách với thông tin chi tiết như sau:
+            <ul>
+                <li>Mẫu số: <span>@Model.TemplateForm</span></li>
+                <li>Ký hiệu: <span>@Model.TemplateSerial</span></li>
+                <li>Số hóa đơn: <span>@Model.Number</span></li>
+                <li>Mã tra cứu: <span class="attention">@Model.LookupCode</span></li>
+            </ul>
+            Quý khách vui lòng truy cập <a href="@Url.Action("Lookup", "Home", new { Area = "" }, Request.Url.Scheme)">link</a> để xem
+            và kiểm tra hóa đơn.<br /><br />
+
+            Trân trọng cảm ơn<br />
+            <strong>HiEIS</strong><br /><br />
+
+            <b>Lưu ý</b>: Thư này được gửi tự động từ đia chỉ của hệ thống. Xin Quý khách vui lòng không gửi lại vào địa chỉ này!
+        </p>
+
+    </div>
+
+</body>
+</html>

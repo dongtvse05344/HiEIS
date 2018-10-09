@@ -1,0 +1,402 @@
+﻿@{
+    ViewBag.Title = "Tạo thông báo phí";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin thông báo phí</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content" id="form-proforma">
+                    <div class="input-table">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <input type="hidden" id="CustomerId" name="CustomerId" />
+                            </div>
+                            <div class="col-md-2">
+                                <span class="input-label input-required">Tên đơn vị</span>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBox("Enterprise", null, new { @class = "form-control typeahead" })
+                                <span class="field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <span class="input-label input-required">Địa chỉ</span>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBox("Address", null, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default pull-right" onclick="clearInput();" id="clear-input">Xóa</a>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <span class="input-label">Số điện thoại</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBox("Tel", null, new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="input-label input-required">Hạn thanh toán</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input readonly id="PaymentDeadline" type="text" class="form-control" name="PaymentDeadline" placeholder="dd/mm/yyyy" />
+                                <span class="field-validation-error"></span>
+                            </div>
+
+                        </div>
+
+
+                    </div><!-- /.input-table -->
+
+                    <hr />
+
+                    <!-- Button group -->
+                    <div class="row table-button-group">
+                        <div class="col-md-6 left"></div>
+                        <div class="col-md-6 right text-right">
+                            <a id="choose-products" class="btn btn-primary main-action">
+                                <i class="fa fa-plus"></i>Thêm sản phẩm
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- proforma item table -->
+                    <div>
+                        <table id="proforma-item-table" class="table table-bordered table-action">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="vertical-align: middle;">Khoản mục</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Đơn vị</th>
+                                    <th colspan="2">Thời gian</th>
+                                    <th colspan="2">Chỉ số</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Khối lượng</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Đơn giá</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Thành tiền</th>
+                                    <th colspan="2">Thuế VAT</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Tổng cộng</th>
+                                    <th rowspan="2" style="vertical-align: middle;">Thao tác</th>
+                                </tr>
+
+
+                                <tr>
+                                    <th>Từ</th>
+                                    <th>Đến</th>
+                                    <th>Cũ</th>
+                                    <th>Mới</th>
+                                    <th>TS %</th>
+                                    <th>Tiền thuế</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- VAT-Total amount -->
+                    <div class="input-table">
+                        <div class="row">
+                            <div class="col-md-9"><span class="input-label pull-right">Tổng tiền dịch vụ/sản phẩm</span></div>
+                            <div class="col-md-3">
+                                <input id="SubTotal" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-9"><span class="input-label pull-right">Tổng tiền thuế VAT</span></div>
+                            <div class="col-md-3">
+                                <input id="VATAmount" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-9"><span class="input-label pull-right">Tổng cộng kỳ này</span></div>
+                            <div class="col-md-3">
+                                <input id="TotalNoLiabilities" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-9"><span class="input-label pull-right">Nợ kỳ trước</span></div>
+                            <div class="col-md-3">
+                                <input id="Liabilities" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9"><span class="input-label pull-right">Tổng cộng tiền thanh toán</span></div>
+                            <div class="col-md-3">
+                                <input id="Total" class="form-control text-right" readonly value="" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button id="save-proforma" type="submit" class="btn btn-primary">Lưu</button>
+                            @Html.ActionLink("Quay lại", "Index", "ProformaInvoice", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+<!--Popup sản phẩm-->
+<div id="modal-form" class="modal bs-example-modal-sm fade" tabindex="-1" role="dialog" aria-labelledby="myFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    Thông tin sản phẩm
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="input-table">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label input-required">Dịch vụ</span>
+                        </div>
+                        <div class="col-md-9">
+                            <select id="product-list" class="form-control">
+                                <option>----- Chọn sản phẩm -----</option>
+
+                            </select>
+                            <span class="product-error"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label">Đơn vị</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input readonly class="form-control" id="product-unit" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label input-required">Đơn giá</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input min="1" class="form-control" id="product-price" />
+                            <span class="price-error"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label input-required">Thời gian</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="input-label">Từ</span>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" id="product-time-from" placeholder="dd/mm/yyyy" />
+                            <span class="time-from-error"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-1">
+                            <span class="input-label">Đến</span>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" id="product-time-to" placeholder="dd/mm/yyyy" />
+                            <span class="time-to-error"></span>
+                        </div>
+                        <div class="col-md-1" hidden>
+                            <input id="product-index" />
+                        </div>
+                    </div>
+                    <div class="row has-index">
+                        <div class="col-md-3">
+                            <span class="input-label">Chỉ số</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="input-label">Cũ</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input min="1" class="form-control" id="product-oldNumber" type="number" />
+                            <span class="oldNumber-error"></span>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="input-label">Mới</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="product-newNumber" type="number" />
+                            <span class="newNumber-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label">Khối lượng</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" id="product-weight" type="number" min="1" />
+                            <span class="weight-error"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label">Thành tiền</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input readonly class="form-control" id="product-sub-total" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label">Thuế</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input readonly class="form-control" id="product-vat" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label">Tiền thuế</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input readonly class="form-control" id="product-VATAmount" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="input-label">Tổng cộng</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input readonly class="form-control" id="product-total" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a id="save" class="btn btn-primary" data-action-type="create">Lưu</a>
+                            <a class="btn btn-default" onclick="clearProductInput();" id="clear-input">Xóa</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End popup sản phẩm-->
+<!--Template - Product Table-->
+<template id="template-item-table-row">
+    <tr>
+        <td class="name"></td>
+        <td class="unit"></td>
+        <td class="dateFrom"></td>
+        <td class="dateTo"></td>
+        <td class="oldNum"></td>
+        <td class="newNum"></td>
+        <td class="weight"></td>
+        <td class="unit-price text-right"></td>
+        <td class="subTotal text-right"></td>
+        <td class="VATRate"></td>
+        <td class="VATAmount text-right"></td>
+        <td class="total text-right"></td>
+        <td>
+            <a class="link js-item-update" data-selected="">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a class="link js-item-delete" data-selected="">
+                <i class="fa fa-close"></i>
+            </a>
+        </td>
+        <td class="index" hidden></td>
+    </tr>
+</template>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/hieis-proforma-create.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            //Save Proforma
+            $('#save-proforma').on('click', function () {
+
+                if ($('#proforma-item-table tbody tr').length == 0 || $('#Enteprise').val() == "") {
+                    toastr.warning("Vui lòng điền thông tin và chọn sản phẩm.", "Nhắc nhở");
+                }
+                else if ($("#PaymentDeadline").val() == "") {
+                    toastr.warning("Vui lòng chọn hạn thanh toán.", "Nhắc nhở");
+                }
+                else {
+                    var proforma = getProforma();
+                    console.log(proforma);
+
+                    $.ajax({
+                        url: "/Public/ProformaInvoice/Create/",
+                        data: {
+                            model: proforma
+                        },
+                        method: "POST",
+                        success: function (res) {
+                            if (!res.success) {
+                                if (res.data && res.data.length) {
+                                    $('#form-proforma .field-validation-error').empty();
+                                    res.data.forEach(e => {
+                                        var regex = /model\.(.+)\[(\d+)\]\.(.+)/i;
+                                        if (regex.test(e.name)) {
+                                            var arrayField = e.name.replace(regex, '$1');
+                                            var itemIndex = e.name.replace(regex, '$2');
+                                            var itemErrorField = e.name.replace(regex, '$3');
+                                        } else {
+                                            $('#form-proforma [name=' + e.name + ']~.field-validation-error').html(e.error);
+                                        }
+                                    });
+                                    swal('Không thành công', res.message, 'warning');
+                                } else {
+                                    swal('Không thành công', res.message, 'error');
+                                }
+                            } else {
+                                sessionStorage.setItem('message', res.message);
+                                window.location.replace(res.url);
+                            }
+                        },
+                        error: function (response) {
+                            swal('Không thành công', 'Tạo thông báo phí không thành công. Vui lòng thử lại!', 'error');
+                            console.log("Fail!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
+
+}
+

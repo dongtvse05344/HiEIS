@@ -1,0 +1,100 @@
+﻿@model HiEIS.Areas.Public.Models.UpdateProductModel
+@{
+    ViewBag.Title = "Sửa sản phẩm";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight" style="width: 50%;">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin sản phẩm</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content" id="form-product">
+
+                    <table class="input-table">
+                        <tr>
+                            <td>
+                                Mã sản phẩm
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Code, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Tên sản phẩm</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Đơn vị tính
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Unit, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Đơn giá</span>
+                            </td>
+                            <td>
+                                <input type="text" id="UnitPrice" name="UnitPrice" value="@Model.SUnitPrice" class="form-control" />
+                                <span class="field-validation-error"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Thuế suất (%)</span>
+                            </td>
+                            <td>
+                                <select id="VATRate" name="VATRate" class="form-control">
+                                    @foreach (var r in ViewBag.VATRates)
+                                    {
+                                        decimal rate = System.Convert.ToDecimal(r.Value);
+                                        <option value="@r.Value" @(rate == Model.VATRate ? "selected" : "")>@r.Text</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Có chỉ số</td>
+                            <td>
+                                @Html.CheckBoxFor(p => p.HasIndex, new { @class = "i-checks" })
+                                &nbsp; (Điện, nước,...)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="color: red">* Bắt buộc</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button id="edit-product" type="submit" class="btn btn-primary" data-id="@Model.Id">Lưu</button>
+                                @Html.ActionLink("Quay lại", "Index", "Products", null, new { @class = "btn btn-default" })
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/hieis-product-input.js"></script>
+}

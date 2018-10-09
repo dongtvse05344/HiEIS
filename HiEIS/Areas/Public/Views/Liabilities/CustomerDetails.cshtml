@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "Chi tiết công nợ";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight invoice">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Thông tin khách hàng</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content">
+                    <table class="table table-hover table-no-striped">
+                        <tr>
+                            <td>Họ tên<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Đơn vị<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.Enterprise</td>
+                        </tr>
+                        <tr>
+                            <td>Mã số thuế<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.TaxNo</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.Address</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.Tel</td>
+                        </tr>
+                        <tr>
+                            <td>Fax<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.Fax</td>
+                        </tr>
+                        <tr>
+                            <td>Ngân hàng<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.Bank</td>
+                        </tr>
+                        <tr>
+                            <td>Tài khoản ngân hàng<span>:</span></td>
+                            <td>@ViewBag.CustomerInfo.BankAccountNumber</td>
+                        </tr>
+                    </table>
+                </div><!-- /.ibox-content -->
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title detail-title">
+                    <h5>Chi tiết công nợ</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <select id="year" class="form-control" style="margin-bottom: 10px;"></select>
+                        </div>
+
+                    </div>
+                    <div id="wrapper">
+                        <!-- Button group -->
+                        <div class="row table-button-group">
+                            <div class="col-md-6 left"></div>
+                            <div class="col-md-6 right text-right">
+                                @using HiEIS.Utils
+                                @if (User.IsInRole(HiEISUtil.RoleLiabilityAccountant))
+                                {
+                                    <button type="button" class="btn btn-primary main-action payment-btn" data-toggle="modal" data-target="#modal-form">
+                                        <i class="fa fa-plus"></i>Thanh toán
+                                    </button>
+                                }
+                            </div>
+                        </div><!-- /Button group -->
+                        <!-- Main table -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered"
+                                   id="liabilities-detail-table"
+                                   data-id="@(ViewBag.customerId)">
+                                <thead>
+                                    <tr>
+                                        <th>Thời gian</th>
+                                        <th>Loại</th>
+                                        <th>Số tiền</th>
+                                        <th>Ghi chú</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            <!-- Pagination -->
+                            <div class="row table-pagination">
+                                <div class="col-sm-7 left"></div>
+                                <div class="col-sm-5 right"></div>
+                            </div>
+
+                        </div><!-- /Main table -->
+
+
+                        <div class="input-table">
+                            <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-2">
+                                    <span class="input-label pull-right">Nợ năm nay</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="Current" name="Current" value="" class="form-control text-right" readonly="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-2">
+                                    <span class="input-label pull-right">Nợ năm trước còn lại</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="LastRemain" name="LastRemain" value="" class="form-control text-right" readonly="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-1">
+                                    <span class="input-label pull-right">Tổng nợ</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="TotalCurrent" name="TotalCurrent" value="" class="form-control text-right" readonly="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-1">
+                                    <span class="input-label pull-right">Đã trả</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="Paid" name="Paid" value="" class="form-control text-right" readonly="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-1">
+                                    <span class="input-label pull-right">Còn lại</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="Remain" name="Remain" value="" class="form-control text-right" readonly="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /#wrapper -->
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            @Html.ActionLink("Quay lại", "Index", "Liabilities", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </div><!-- /.ibox-content -->
+            </div>
+        </div>
+    </div>
+
+</div><!-- Page content -->
+
+<template id="template-table-details">
+    <tr class="gradeX">
+        <td class="text-center date"></td>
+        <td class="text-center type"></td>
+        <td class="text-center amount"></td>
+        <td class="note"></td>
+    </tr>
+</template>
+
+<!-- Modal -->
+<div id="modal-form" class="modal bs-example-modal-sm fade" tabindex="-1" role="dialog" aria-labelledby="myFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <table class="input-table">
+                    <tr>
+                        <td><span class=" input-required">Số tiền</span></td>
+                        <td>
+                            <input class="form-control" id="Amount" name="Amount" />
+                            <span class="field-validation-error"></span>
+                            <span class="amount-error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ghi chú</td>
+                        <td>
+                            <textarea class="form-control" id="Note" name="Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a id="save" class="btn btn-primary js-payment">Lưu</a>
+                            <a data-dismiss="modal" class="btn btn-default" id="close-modal">Đóng</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/hieis-liabilities-customer-details.js"></script>
+}

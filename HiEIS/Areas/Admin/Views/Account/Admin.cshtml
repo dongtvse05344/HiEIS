@@ -1,0 +1,331 @@
+﻿@{
+    ViewBag.Title = "Tài khoản Quản trị viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="wrapper wrapper-content animated fadeInRight account">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <!-- Page heading -->
+                <div class="ibox-title">
+                    <h5>Danh sách tài khoản</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Page content -->
+                <div class="ibox-content">
+                    <!-- Search group -->
+                    <div class="row table-search-group">
+                        <div class="col-md-3">
+                            <input id="search-username" class="form-control m-b" placeholder="Tài khoản">
+                        </div>
+                        <div class="col-md-3">
+                            <input id="search-email" class="form-control m-b" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <!-- Button group -->
+                    <div class="row table-button-group">
+                        <div class="col-md-6 left"></div>
+                        <div class="col-md-6 right text-right">
+                            <a href="@Url.Action("CreateAdmin", "Account")" class="btn btn-primary main-action">
+                                <i class="fa fa-plus"></i>Tạo tài khoản
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Main table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-custom" id="admin-account-table">
+                            <thead>
+                                <tr>
+                                    <th>Tài Khoản</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Thao tác</th>
+                                </tr>
+
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Tài Khoản</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="row table-pagination">
+                        <div class="col-sm-7 left"></div>
+                        <div class="col-sm-5 right"></div>
+                    </div>
+                </div>
+
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+<template id="template-table-action">
+    <div>
+        <a class="link js-activate" data-id="">
+            <span class="my-tooltip center">
+                <i class="fa fa-toggle-off"></i>
+                <b class="tooltip-text">Khôi phục tài khoản</b>
+            </span>
+        </a>
+        <a class="link js-deactivate" data-id="">
+            <span class="my-tooltip center">
+                <i class="fa fa-toggle-on"></i>
+                <b class="tooltip-text">Khóa tài khoản</b>
+            </span>
+        </a>
+        <a class="link js-change-password" href="@Url.Action("ChangePassword", "Account")">
+            <span class="my-tooltip center">
+                <i class="fa fa-lock"></i>
+                <b class="tooltip-text">Đổi mật khẩu</b>
+            </span>
+        </a>
+        <a class="link js-edit" href="@Url.Action("EditAdmin", "Account")">
+            <span class="my-tooltip center small-tooltip">
+                <i class="fa fa-pencil"></i>
+                <b class="tooltip-text">Sửa</b>
+            </span>
+        </a>
+        <a class="link js-delete" data-id="">
+            <span class="my-tooltip center small-tooltip">
+                <i class="fa fa-trash"></i>
+                <b class="tooltip-text">Xóa</b>
+            </span>
+        </a>
+    </div>
+</template>
+
+@section scripts{
+    <script>
+        $(document).ready(function (e) {
+            (function () {
+
+                function ajaxAccountLoading(data, callback, settings) {
+                    var orderInfo = data.order[0];
+                    var orderCol = data.columns[orderInfo.column].data;
+                    $.ajax({
+                        url: '/Admin/Account/GetAllAdminAccount',
+                        method: 'Post',
+                        data: {
+                            searchPhase: data.search.value,
+                            page: data.start,
+                            pageSize: data.length,
+                            username: $('#search-username').val(),
+                            email: $('#search-email').val(),
+                            orderCol: orderCol,
+                            orderDir: orderInfo.dir
+                        },
+                        success: function (res) {
+                            callback({
+                                draw: data.draw,
+                                recordsTotal: res.total,
+                                recordsFiltered: res.display,
+                                data: res.data
+                            });
+                        }
+                    });
+                }
+
+                window.table = $('#admin-account-table').DataTable({
+                    "pageLength": '10',
+                    "responsive": true,
+                    "autoWidth": false,
+                    "dom": 'Bfrtip',
+                    "buttons": [
+                        {
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: ':not(:last-child)'
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            title: 'Admin',
+                            exportOptions: {
+                                columns: ':not(:last-child)'
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            title: 'Admin',
+                            exportOptions: {
+                                columns: ':not(:last-child)'
+                            }
+                        }
+                    ],
+                    "processing": false,
+                    "serverSide": true,
+                    "ajax": ajaxAccountLoading,
+                    "columns": [
+                        {
+                            "data": "UserName",
+                        },
+
+                        { "data": "Email" },
+                        { "data": "PhoneNumber" },
+                        {
+                            "data": null,
+                            "className": 'table-action text-center',
+                            "orderable": false,
+                            render: function (data, type, row) {
+                                var href = '';
+                                var actionTemplate = $('#template-table-action').html();
+                                actionTemplate = $(actionTemplate);
+
+                                actionTemplate.find('.js-activate, .js-deactivate, .js-delete').attr('data-id', row.Id);
+
+                                if (actionTemplate.find('.js-edit').length > 0) {
+                                    href = actionTemplate.find('.js-edit').attr('href');
+                                    href += '/' + row.Id;
+                                    actionTemplate.find('.js-edit').attr('href', href)
+                                }
+                                if (actionTemplate.find('.js-change-password').length > 0) {
+                                    href = actionTemplate.find('.js-change-password').attr('href');
+                                    href += '?id=' + row.Id;
+                                    href += '&url=' + window.location.pathname;
+                                    actionTemplate.find('.js-change-password').attr('href', href)
+                                }
+
+                                if (row["IsActive"] === true) {
+                                    actionTemplate.find('.js-activate').remove();
+                                }
+                                else {
+                                    actionTemplate.find('.js-deactivate').remove();
+                                }
+                                return actionTemplate.html();
+                            }
+                        }
+                    ]
+
+                });
+            })();
+
+            moveComponents();
+
+            $('#search-username').on('keyup', function () {
+                window.table.ajax.reload();
+            });
+
+            $('#search-email').on('keyup', function () {
+                window.table.ajax.reload();
+            });
+
+            $('#admin-account-table').on('click', '.js-activate', function (e) {
+
+                e.preventDefault();
+                var accId = $(this).attr("data-id");
+
+                $.ajax({
+                    url: "/Admin/Account/Activate/",
+                    data: { id: accId },
+                    method: "POST",
+                    success: function (res) {
+                        if (res.success) {
+                            toastr.success(res.message, res.title);
+                            $('#admin-account-table').DataTable().ajax.reload();
+                        }
+                        else {
+                            toastr.error(res.message, res.title);
+                        }
+                    },
+                    error: function (response) {
+                        toastr.error("Có lỗi xảy ra, vui lòng thử lại sau", "Không thành công");
+                    }
+                });
+
+            });
+
+            $('#admin-account-table').on('click', '.js-deactivate', function (e) {
+
+                e.preventDefault();
+                var accId = $(this).attr("data-id");
+
+                $.ajax({
+                    url: "/Admin/Account/Deactivate/",
+                    data: { id: accId },
+                    method: "POST",
+                    success: function (res) {
+                        if (res.success) {
+                            toastr.success(res.message, res.title);
+                            $('#admin-account-table').DataTable().ajax.reload();
+                        }
+                        else {
+                            swal(res.title, res.message, "error");
+                        }
+                    },
+                    error: function (response) {
+                        toastr.error("Có lỗi xảy ra, vui lòng thử lại sau", "Không thành công");
+                    }
+                });
+
+            });
+
+            $('#admin-account-table').on('click', '.js-delete', function (e) {
+
+                e.preventDefault();
+                var accId = $(this).attr("data-id");
+
+                swal({
+                    title: "Bạn có chắc chắn xóa không?",
+                    text: "Bạn không thể hoàn tác lại hành động này!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Hủy",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "/Admin/Account/DeleteAccount/",
+                            data: { id: accId },
+                            method: "POST",
+                            success: function (res) {
+                                if (res.success) {
+                                    swal(res.title, res.message, "success");
+                                    $('#admin-account-table').DataTable().ajax.reload();
+                                }
+                                else {
+                                    swal(res.title, res.message, "error");
+                                }
+                            },
+                            error: function (response) {
+                                swal("Không thành công", "Có lỗi xảy ra, vui lòng thử lại sau!", "error");
+                            }
+                        });
+                    }
+                    else {
+                        //Do nothing
+                    }
+
+                });
+
+            });
+
+            var jsMessage = sessionStorage['message'];
+            if (jsMessage !== undefined) {
+                toastr.success(jsMessage, "Thành công");
+                sessionStorage.clear();
+            }
+        });
+    </script>
+    <script src="~/Scripts/hieis-tooltip.js"></script>
+}
+

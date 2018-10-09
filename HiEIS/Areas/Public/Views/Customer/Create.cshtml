@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Thêm khách hàng";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight customer">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <div class="input-table">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="input-label">Thông tin khách hàng</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBox("username", null, new { @class = "form-control", placeholder = "Nhập thông tin tìm kiếm" })
+                            </div>
+                            <div class="col-md-3">
+                                <a id="btn-username" class="btn btn-primary">Tìm</a>
+                                <a class="btn btn-default" onclick="clearInput();" id="clear-input">Xóa</a>
+                            </div>
+
+                        </div>
+                    </div><!-- /.input-table -->
+
+
+                    <div class="input-table">
+                        <!-- Main table -->
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-custom" id="customer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên Khách hàng</th>
+                                        <th>Đơn vị - Địa chỉ</th>
+                                        <th>MST</th>
+                                        <th>SĐT - Fax</th>
+                                        <th>Ngân hàng - STK</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="row table-pagination">
+                            <div class="col-sm-7 left"></div>
+                            <div class="col-sm-5 right"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                @Html.ActionLink("Quay lại", "Index", "Customer", null, new { @class = "btn btn-default", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        (function () {
+            function ajaxcustomerloading(data, callback, settings) {
+                if (window.isLoad) {
+                    $.ajax({
+                        url: '/Public/Customer/GetNonCustomerCompany',
+                        method: 'post',
+                        data: {
+                            searchphase: $("#username").val(),
+                            page: data.start,
+                            pagesize: data.length
+                        },
+                        success: function (res) {
+
+                            callback({
+                                draw: data.draw,
+                                recordstotal: res.total,
+                                recordsfiltered: res.display,
+                                data: res.data
+                            });
+
+                            console.log(res.total + "-" + res.display);
+                        }
+                    });
+                } else {
+                    callback({
+                        draw: data.draw,
+                        iTotalRecords: 0,
+                        iTotalDisplayRecords: 0,
+                        data: []
+                    });
+                }
+            }
+            window.table = $('#customer-table').DataTable({
+                "pageLength": '10',
+                "responsive": true,
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                "ajax": ajaxcustomerloading,
+                "columns": [
+                    { "data": "Name" },
+                    {
+                        "data": null,
+                        "width": '30%',
+                        "render": function (data, type, row) {
+                            return '<b>' + row['Enterprise'] + '</b><br>'
+                                + row['Address'];
+                        }
+                    },
+                    { "data": "TaxNo" },
+                    {
+                        "data": "Fax",
+                        "width": '15%',
+                        "render": function (data, type, row) {
+                            var tel = row['Tel'];
+                            var fax = row['Fax'];
+                            if (tel == null) {
+                                tel = "";
+                            }
+
+                            if (fax == null) {
+                                fax = "";
+                            }
+                            return tel + '<br>' + fax;
+                        }
+                    },
+                    {
+                        "data": null,
+                        "width": '15%',
+                        "render": function (data, type, row) {
+                            var bank = row['Bank'];
+                            var bankNo = row['BankAccountNumber'];
+                            if (bank == null) {
+                                bank = "";
+                            }
+
+                            if (bankNo == null) {
+                                bankNo = "";
+                            }
+                            return bank + '<br>' + bankNo;
+                        }
+                    },
+                    {
+                        "data": null,
+                        "width": '10%',
+                        "className": 'table-action text-center',
+                        "render": function (data, type, row) {
+                            var id = row.Id;
+                            var btnAddCustomer = '<a data-id="' + id + '"class="link js-addCustomer" data-toggle="tooltip" title="Thêm khách hàng"><i class="fa fa-plus-square"></i></a>';
+                            return btnAddCustomer;
+                        }
+                    }
+
+                ]
+
+            });
+            moveComponents();
+        })();
+
+
+        window.isLoad = false;
+        //clear input
+        function clearInput() {
+            window.isLoad = false;
+            window.table.ajax.reload();
+            $('#username').val("");
+        }
+
+        $('#btn-username').on("click", function () {
+            window.isLoad = true;
+            var username = $("#username").val();
+            if (username === "") {
+                toastr.warning("Vui lòng nhập thông tin tìm kiếm.", "Nhắc nhở");
+            }
+            else {
+                window.table.ajax.reload();
+
+            }
+        })
+
+        $("#customer-table").on("click", ".js-addCustomer", function (e) {
+
+            e.preventDefault();
+            var _button = $(this);
+            var customerId = _button.data("id");
+
+            swal({
+                title: "Bạn có chắc không?",
+                text: "Tài khoản này sẽ được thêm vào danh sách khách hàng của bạn!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Có",
+                cancelButtonText: "Hủy",
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/Public/Customer/Create/",
+                        data: { id: customerId },
+                        method: "POST",
+                        success: function (response) {
+                            swal("Đã thêm khách hàng", "Thêm khách hàng thành công!", "success");
+                            $('#customer-table').DataTable().ajax.reload();
+                        },
+                        error: function (response) {
+                            swal("Đã có lỗi xảy ra", "Vui lòng thử lại sau!", "warning");
+                        }
+                    });
+                }
+                else {
+                    //Do nothing
+                }
+
+            });
+
+        });
+    </script>
+
+}

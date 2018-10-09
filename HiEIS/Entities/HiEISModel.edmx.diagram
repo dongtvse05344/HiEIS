@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cc53afa82f434122afcca00f1d07bd5f" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="HiEISModel.AspNetRole" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="HiEISModel.AspNetUser" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="HiEISModel.Company" Width="1.5" PointX="3" PointY="7.375" />
+        <EntityTypeShape EntityType="HiEISModel.CompanyCustomer" Width="1.5" PointX="7.5" PointY="19.25" />
+        <EntityTypeShape EntityType="HiEISModel.Customer" Width="1.5" PointX="5.25" PointY="16.25" />
+        <EntityTypeShape EntityType="HiEISModel.CustomerProduct" Width="1.5" PointX="7.5" PointY="22.25" />
+        <EntityTypeShape EntityType="HiEISModel.Invoice" Width="1.5" PointX="10.5" PointY="12.375" />
+        <EntityTypeShape EntityType="HiEISModel.InvoiceItem" Width="1.5" PointX="12.75" PointY="14.875" />
+        <EntityTypeShape EntityType="HiEISModel.Product" Width="1.5" PointX="10.5" PointY="7.375" />
+        <EntityTypeShape EntityType="HiEISModel.ProformaInvoice" Width="1.5" PointX="7.5" PointY="14" />
+        <EntityTypeShape EntityType="HiEISModel.ProformaInvoiceItem" Width="1.5" PointX="12.75" PointY="10.5" />
+        <EntityTypeShape EntityType="HiEISModel.Staff" Width="1.5" PointX="5.25" PointY="12" />
+        <EntityTypeShape EntityType="HiEISModel.Template" Width="1.5" PointX="8.25" PointY="9.25" />
+        <EntityTypeShape EntityType="HiEISModel.Transaction" Width="1.5" PointX="10.5" PointY="20.875" />
+        <AssociationConnector Association="HiEISModel.FK_Customer_AspNetUsers" />
+        <AssociationConnector Association="HiEISModel.FK_Staff_AspNetUsers" />
+        <AssociationConnector Association="HiEISModel.FK_CompanyCustomer_Company" />
+        <AssociationConnector Association="HiEISModel.FK_Product_Company" />
+        <AssociationConnector Association="HiEISModel.FK_Staff_Company" />
+        <AssociationConnector Association="HiEISModel.FK_Template_Company" />
+        <AssociationConnector Association="HiEISModel.FK_Transaction_Company" />
+        <AssociationConnector Association="HiEISModel.FK_CompanyCustomer_Customer1" />
+        <AssociationConnector Association="HiEISModel.FK_CustomerProduct_Customer" />
+        <AssociationConnector Association="HiEISModel.FK_Invoice_Customer" />
+        <AssociationConnector Association="HiEISModel.FK_ProformaInvoice_Customer" />
+        <AssociationConnector Association="HiEISModel.FK_Transaction_Customer" />
+        <AssociationConnector Association="HiEISModel.FK_CustomerProduct_Product" />
+        <AssociationConnector Association="HiEISModel.FK_Invoice_Staff" />
+        <AssociationConnector Association="HiEISModel.FK_Invoice_Template" />
+        <AssociationConnector Association="HiEISModel.FK_InvoiceItem_Invoice" />
+        <AssociationConnector Association="HiEISModel.FK_InvoiceItem_Product" />
+        <AssociationConnector Association="HiEISModel.FK_ProformaInvoiceItem_Product" />
+        <AssociationConnector Association="HiEISModel.FK_ProformaInvoice_Staff" />
+        <AssociationConnector Association="HiEISModel.FK_ProformaInvoiceItem_ProformaInvoice" />
+        <AssociationConnector Association="HiEISModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

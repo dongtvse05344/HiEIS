@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Areas/Public/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div class="wrapper wrapper-content animated fadeInRight product">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <h5>Danh sách sản phẩm</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div><!-- ibox-title -->
+
+                <div class="ibox-content">
+
+                    <!-- Search group -->
+                    <div class="row table-search-group">
+                        <div class="col-md-3">
+                            <input id="search-name" class="form-control m-b" placeholder="Tên sản phẩm">
+                        </div>
+                        <div class="col-md-3">
+                            <input id="search-code" class="form-control m-b" placeholder="Mã sản phẩm">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="filter price">
+                                <input id="search-min" class="form-control m-b" placeholder="Từ">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="search-max" class="form-control m-b" placeholder="Đến">
+                        </div>
+                    </div>
+
+                    <!-- Button group -->
+                    <div class="row table-button-group">
+                        <div class="col-md-6 left"></div>
+                        <div class="col-md-6 right text-right">
+                            <a href=@Url.Action("Create", "Products") class="btn btn-primary main-action">
+                                <i class="fa fa-plus"></i>Tạo sản phẩm
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Main table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-custom" id="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Mã SP</th>
+                                    <th>Đơn vị</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thuế suất</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Mã SP</th>
+                                    <th>Đơn vị</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thuế suất</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="row table-pagination">
+                        <div class="col-sm-7 left"></div>
+                        <div class="col-sm-5 right"></div>
+                    </div>
+
+                </div>
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+<template id="template-table-action">
+    <div>
+        <a class="link js-edit" href="@Url.Action("Edit", "Products")">
+            <span class="my-tooltip center small-tooltip">
+                <i class="fa fa-pencil"></i>
+                <b class="tooltip-text">Sửa</b>
+            </span>
+        </a>
+        <a class="link js-delete" data-id="">
+            <span class="my-tooltip center small-tooltip">
+                <i class="fa fa-trash"></i>
+                <b class="tooltip-text">Xóa</b>
+            </span>
+        </a>
+    </div>
+</template>
+
+@section scripts {
+    <script src="~/Scripts/hieis-product.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            @*var messageArray = @Html.Raw(Json.Encode(TempData["message"]));
+            if (messageArray != null) {
+                if (messageArray[0] == 'success') {
+                    toastr.success(messageArray[1], messageArray[2]);
+                }
+                else {
+                    toastr.error(messageArray[1], messageArray[2]);
+                }
+            }*@
+
+            var jsMessage = sessionStorage['message'];
+            if (jsMessage != undefined) {
+                toastr.success(jsMessage, "Thành công");
+                sessionStorage.clear();
+            }
+
+        });
+    </script>
+    <script src="~/Scripts/hieis-tooltip.js"></script>
+}
+
+

@@ -1,0 +1,403 @@
+﻿
+@{
+    ViewBag.Title = "Tài khoản Khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight account">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <!-- Page heading -->
+                <div class="ibox-title">
+                    <h5>Danh sách tài khoản</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>        
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Page content -->
+                <div class="ibox-content">
+                    <!-- Search group -->
+                    <div class="row table-search-group">
+                        <div class="col-md-3">
+                            <input id="search-username" class="form-control m-b" placeholder="Tài khoản">
+                        </div>
+                        <div class="col-md-3">
+                            <input id="search-enterprise" class="form-control m-b" placeholder="Đơn vị">
+                        </div>
+                        <div class="col-md-3">
+                            <input id="search-email" class="form-control m-b" placeholder="Email">
+                        </div>
+                        <div class="col-md-3">
+                            <input id="search-taxno" class="form-control m-b" placeholder="Mã số thuế">
+                        </div>
+
+                    </div>
+
+                    <!-- Button group -->
+                    <div class="row table-button-group">
+                        <div class="col-md-6 left"></div>
+                        <div class="col-md-6 right text-right">
+                            <a href="@Url.Action("CreateCustomer", "Account")" class="btn btn-primary main-action">
+                                <i class="fa fa-plus"></i>Tạo tài khoản
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Main table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-custom" id="customer-account-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên Khách hàng</th>
+                                    <th>Tài Khoản</th>
+                                    <th>Đơn vị - Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>MST</th>
+                                    <th>SĐT - Fax</th>
+                                    <th>Ngân hàng - STK</th>
+                                    <th>Thao tác</th>
+                                </tr>
+
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Tên khách hàng</th>
+                                    <th>Tài Khoản</th>
+                                    <th>Đơn vị - Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>MST</th>
+                                    <th>SĐT - Fax</th>
+                                    <th>Ngân hàng - STK</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="row table-pagination">
+                        <div class="col-sm-7 left"></div>
+                        <div class="col-sm-5 right"></div>
+                    </div>
+                </div>
+
+            </div><!-- /.ibox -->
+        </div>
+    </div>
+</div><!-- Page content -->
+
+<template id="template-table-action">
+    <div>
+        <a class="link js-activate" data-id="">
+            <span class="my-tooltip center">
+                <i class="fa fa-toggle-off"></i>
+                <b class="tooltip-text">Khôi phục tài khoản</b>
+            </span>
+        </a>
+        <a class="link js-deactivate" data-id="">
+            <span class="my-tooltip center">
+                <i class="fa fa-toggle-on"></i>
+                <b class="tooltip-text">Khóa tài khoản</b>
+            </span>
+        </a>
+        <a class="link js-change-password" href="@Url.Action("ChangePassword", "Account")">
+            <span class="my-tooltip center">
+                <i class="fa fa-lock"></i>
+                <b class="tooltip-text">Đổi mật khẩu</b>
+            </span>
+        </a>
+        <a class="link js-edit" href="@Url.Action("EditCustomer", "Account")">
+            <span class="my-tooltip center small-tooltip">
+                <i class="fa fa-pencil"></i>
+                <b class="tooltip-text">Sửa</b>
+            </span>
+        </a>
+        <a class="link js-delete" data-id="">
+            <span class="my-tooltip center small-tooltip">
+                <i class="fa fa-trash"></i>
+                <b class="tooltip-text">Xóa</b>
+            </span>
+        </a>
+    </div>
+</template>
+
+@section scripts{
+    <script>
+        $(document).ready(function (e) {
+            (function () {
+
+                function ajaxAccountLoading(data, callback, settings) {
+                    var orderInfo = data.order[0];
+                    var orderCol = data.columns[orderInfo.column].data;
+                    $.ajax({
+                        url: '/Admin/Account/GetAllCustomerAccount',
+                        method: 'Post',
+                        data: {
+                            searchPhase: data.search.value,
+                            page: data.start,
+                            pageSize: data.length,
+                            username: $('#search-username').val(),
+                            email: $('#search-email').val(),
+                            enterprise: $('#search-enterprise').val(),
+                            taxno: $('#search-taxno').val(),
+                            orderCol: orderCol,
+                            orderDir: orderInfo.dir
+                        },
+                        success: function (res) {
+                            //window.table.ajax.reload();
+                            callback({
+                                draw: data.draw,
+                                recordsTotal: res.total,
+                                recordsFiltered: res.display,
+                                data: res.data
+                            });
+                        }
+                    });
+                }
+
+                window.table = $('#customer-account-table').DataTable({
+                    "pageLength": '10',
+                    "responsive": true,
+                    "autoWidth": false,
+                    "dom": 'Bfrtip',
+                    "buttons": [
+                        {
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: ':not(:last-child)'
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            title: 'Tài khoản',
+                            exportOptions: {
+                                columns: ':not(:last-child)'
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            title: 'Tài khoản',
+                            exportOptions: {
+                                columns: ':not(:last-child)'
+                            }
+                        }
+                    ],
+                    "processing": false,
+                    "serverSide": true,
+                    "ajax": ajaxAccountLoading,
+                    "columns": [
+                        { "data": "CustomerName" },
+                        {
+                            "data": "UserName",
+                        },
+                        {
+                            "data": null,
+                            "width": '33%',
+                            "render": function (data, type, row) {
+                                return '<b>' + row['CustomerEnterprise'] + '</b><br>'
+                                    + row['CustomerAddress'];
+                            }
+                        },
+                        { "data": "Email" },
+                        { "data": "CustomerTaxNo" },
+                        {
+                            "data": null,
+                            "render": function (data, type, row) {
+                                var tel = row['CustomerTel'];
+                                var fax = row['CustomerFax'];
+                                if (tel == null) {
+                                    tel = "";
+                                }
+
+                                if (fax == null) {
+                                    fax = "";
+                                }
+                                return tel + '<br>' + fax;
+                            }
+                        },
+                        {
+                            "data": null,
+                            "render": function (data, type, row) {
+                                var bank = row['CustomerBank'];
+                                var bankNo = row['CustomerBankAccountNumber'];
+                                if (bank == null) {
+                                    bank = "";
+                                }
+
+                                if (bankNo == null) {
+                                    bankNo = "";
+                                }
+                                return bank + '<br>' + bankNo;
+                            }
+                        },
+                        {
+                            "data": null,
+                            "className": 'table-action text-center',
+                            "orderable": false,
+                            "width": "25%",
+                            "render": function (data, type, row) {
+                                //var id = row.Id;
+                                //var btnEdit = '<a class="link" href="/Admin/Account/EditCustomer/' + id + '"><i class="fa fa-pencil"></i></a>';
+                                //var btnDeactivate = '<a class="link js-deactivate" data-id="' + id + '"><i class="fa fa-toggle-on"></i></a>';
+                                //var btnActivate = '<a class="link js-activate" data-id="' + id + '"><i class="fa fa-toggle-off"></i></a>';
+                                //var btnDelete = '<a data-id="' + id + '" class="link js-delete"><i class="fa fa-trash"></i></a>';
+                                //var btnChangePwd = '<a class="link" href="/Admin/Account/ChangePassword?id=' + id + '&url=' + window.location.pathname + '"><span class="my-tooltip right"><i class="fa fa-lock"></i><b class="tooltip-text">Thay đổi mật khẩu</b></span></a>';
+                                //return (row["IsActive"] === true ? btnDeactivate : btnActivate) + btnEdit + btnChangePwd  + btnDelete;
+                                var href = '';
+                                var actionTemplate = $('#template-table-action').html();
+                                actionTemplate = $(actionTemplate);
+
+                                actionTemplate.find('.js-activate, .js-deactivate, .js-delete').attr('data-id', row.Id);
+
+                                if (actionTemplate.find('.js-edit').length > 0) {
+                                    href = actionTemplate.find('.js-edit').attr('href');
+                                    href += '/' + row.Id;
+                                    actionTemplate.find('.js-edit').attr('href', href)
+                                }
+                                if (actionTemplate.find('.js-change-password').length > 0) {
+                                    href = actionTemplate.find('.js-change-password').attr('href');
+                                    href += '?id=' + row.Id;
+                                    href += '&url=' + window.location.pathname;
+                                    actionTemplate.find('.js-change-password').attr('href', href)
+                                }
+
+                                if (row["IsActive"] === true) {
+                                    actionTemplate.find('.js-activate').remove();
+                                }
+                                else {
+                                    actionTemplate.find('.js-deactivate').remove();
+                                }
+                                return actionTemplate.html();
+                            }
+                        }
+                    ]
+
+                });
+            })();
+
+            moveComponents();
+
+            $('#search-username').on('keyup', function () {
+                window.table.ajax.reload();
+            });
+
+            $('#search-email').on('keyup', function () {
+                window.table.ajax.reload();
+            });
+
+            $('#search-enterprise').on('keyup', function () {
+                window.table.ajax.reload();
+            });
+
+            $('#search-taxno').on('keyup', function () {
+                window.table.ajax.reload();
+            });
+
+            $('#customer-account-table').on('click', '.js-activate', function (e) {
+
+                e.preventDefault();
+                var accId = $(this).attr("data-id");
+
+                $.ajax({
+                    url: "/Admin/Account/Activate/",
+                    data: { id: accId },
+                    method: "POST",
+                    success: function (res) {
+                        if (res.success) {
+                            toastr.success(res.message, res.title);
+                            $('#customer-account-table').DataTable().ajax.reload();
+                        }
+                        else {
+                            toastr.error(res.message, res.title);
+                        }
+                    },
+                    error: function (response) {
+                        toastr.error("Có lỗi xảy ra, vui lòng thử lại sau", "Không thành công");
+                    }
+                });
+
+            });
+
+            $('#customer-account-table').on('click', '.js-deactivate', function (e) {
+
+                e.preventDefault();
+                var accId = $(this).attr("data-id");
+
+                $.ajax({
+                    url: "/Admin/Account/Deactivate/",
+                    data: { id: accId },
+                    method: "POST",
+                    success: function (res) {
+                        if (res.success) {
+                            toastr.success(res.message, res.title);
+                            $('#customer-account-table').DataTable().ajax.reload();
+                        }
+                        else {
+                            swal(res.title, res.message, "error");
+                        }
+                    },
+                    error: function (response) {
+                        toastr.error("Có lỗi xảy ra, vui lòng thử lại sau", "Không thành công");
+                    }
+                });
+
+            });
+
+            $('#customer-account-table').on('click', '.js-delete', function (e) {
+
+                e.preventDefault();
+                var accId = $(this).attr("data-id");
+
+                swal({
+                    title: "Bạn có chắc chắn xóa không?",
+                    text: "Bạn không thể hoàn tác lại hành động này!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Hủy",
+                    closeOnConfirm: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "/Admin/Account/Delete/",
+                            data: { id: accId },
+                            method: "POST",
+                            success: function (res) {
+                                if (res.success) {
+                                    swal(res.title, res.message, "success");
+                                    $('#customer-account-table').DataTable().ajax.reload();
+                                }
+                                else {
+                                    swal(res.title, res.message, "error");
+                                }
+                            },
+                            error: function (response) {
+                                swal("Không thành công", "Có lỗi xảy ra, vui lòng thử lại sau!", "error");
+                            }
+                        });
+                    }
+                    else {
+                        //Do nothing
+                    }
+
+                });
+
+            });
+
+
+            var jsMessage = sessionStorage['message'];
+            if (jsMessage !== undefined) {
+                toastr.success(jsMessage, "Thành công");
+                sessionStorage.clear();
+            }
+        });
+    </script>
+    <script src="~/Scripts/hieis-tooltip.js"></script>
+}

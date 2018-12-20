@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiEIS", "HiEIS\HiEIS.csproj", "{6142884C-E394-47CA-AD53-665AE08A9903}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureApp", "SignatureApp\SignatureApp.csproj", "{4F770000-9443-454A-A2B1-88A7F1F9660B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigningCertificate", "SigningCertificate\SigningCertificate.csproj", "{4AB25406-4515-434A-96A4-1F396B6A3BFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4F770000-9443-454A-A2B1-88A7F1F9660B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F770000-9443-454A-A2B1-88A7F1F9660B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F770000-9443-454A-A2B1-88A7F1F9660B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB25406-4515-434A-96A4-1F396B6A3BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB25406-4515-434A-96A4-1F396B6A3BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB25406-4515-434A-96A4-1F396B6A3BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB25406-4515-434A-96A4-1F396B6A3BFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

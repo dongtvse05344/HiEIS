@@ -266,6 +266,8 @@ namespace HiEIS.Businesses
             }
         }
 
+        
+
         public bool CreateInvoice(CreateInvoiceViewModel model, string staffId)
         {
             bool result = false;
@@ -895,6 +897,36 @@ namespace HiEIS.Businesses
 
                     if (invoiceInDb != null
                         && invoiceInDb.Template.Company.CodeGuid == compGuid
+                        && invoiceInDb.Status == (int)HiEISUtil.InvoiceStatus.WaitingOnApproval)
+                    {
+                        invoiceInDb.Status = (int)HiEISUtil.InvoiceStatus.Approved;
+                        invoiceInDb.Date = DateTime.Now;
+                        invoiceInDb.FileUrl = fileName;
+                        db.SaveChanges();
+                        var pdfModel = Mapper.Map<Invoice, PdfViewModel>(invoiceInDb);
+                        return pdfModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public PdfViewModel Sign(int Id, string fileName)
+        {
+            using (var db = new HiEISEntities())
+            {
+                try
+                {
+                    var invoiceInDb = db.Invoices.FirstOrDefault(a => a.Id == Id);
+
+                    if (invoiceInDb != null
                         && invoiceInDb.Status == (int)HiEISUtil.InvoiceStatus.WaitingOnApproval)
                     {
                         invoiceInDb.Status = (int)HiEISUtil.InvoiceStatus.Approved;

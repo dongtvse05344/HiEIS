@@ -66,6 +66,10 @@
                                 if (User.IsInRole(HiEISUtil.RoleLiabilityAccountant)
                                     || User.IsInRole(HiEISUtil.RolePayableAccountant))
                                 {
+                                    <a href=@Url.Action("HDKi","Invoices")>Hướng dẫn kí</a>
+                                    <a id="toSign" href="#" class="btn btn-danger main-action">
+                                        <i class="fa fa-check"></i>Kí hóa đơn
+                                    </a>
                                     <a href=@Url.Action("Create", "Invoices") class="btn btn-primary main-action">
                                         <i class="fa fa-plus"></i>Tạo hóa đơn
                                     </a>
@@ -187,28 +191,29 @@
             </a>
         }
         @*@if (User.IsInRole(HiEISUtil.RoleAccountingManager))
-        {
-            <a class="link js-sign"
-               data-id="">
-                <span class="my-tooltip right">
-                    <i class="fa fa-check-square-o"></i>
-                    <b class="tooltip-text">Ký và phát hành</b>
-                </span>
-            </a>
-        }*@
-            <a class="link js-send-email"
-               data-id="">
-                <span class="my-tooltip right">
-                    <i class="fa fa-send"></i>
-                    <b class="tooltip-text">Gửi mã tra cứu</b>
-                </span>
-            </a>
+            {
+                <a class="link js-sign"
+                   data-id="">
+                    <span class="my-tooltip right">
+                        <i class="fa fa-check-square-o"></i>
+                        <b class="tooltip-text">Ký và phát hành</b>
+                    </span>
+                </a>
+            }*@
+        <a class="link js-send-email"
+           data-id="">
+            <span class="my-tooltip right">
+                <i class="fa fa-send"></i>
+                <b class="tooltip-text">Gửi mã tra cứu</b>
+            </span>
+        </a>
 
     </div>
 </template>
 
 @section scripts {
     <script>
+
         APP_PUBLIC.ManageInvoices = function () {
             const INVOICE_STATUS = {
                 '1': 'Mới tạo',
@@ -384,10 +389,77 @@
                 toastr.success(jsMessage, "Thành công");
                 sessionStorage.clear();
             }
-            
+
         });
     </script>
 
     <script src="~/Scripts/hieis-invoice.js"></script>
     <script src="~/Scripts/hieis-tooltip.js"></script>
+    <script>
+        function destroyClickedElement(event) {
+            document.body.removeChild(event.target);
+        }
+        function saveTextAsFile(_code, _path) {
+            var textToSave = _path.split('\\')[0] + "\n";
+            textToSave += "cd " + _path + " \n";
+            textToSave += "SigningCertificate.exe  " + _code + "\n";
+            textToSave += "PAUSE";
+            var textToSaveAsBlob = new Blob([textToSave], { type: "text/plain" });
+            var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+            var fileNameToSaveAs = "Sign.bat";
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            downloadLink.href = textToSaveAsURL;
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+
+            downloadLink.click();
+        }
+
+        $("#toSign").click(function () {
+            event.preventDefault();
+            swal({
+                title: "Bạn có muốn kí hóa đơn không ?",
+                text: "Bạn không thể hoàn tác lại hành động này!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Có",
+                cancelButtonText: "Hủy",
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/Public/Invoices/GetInvoiceWaitSign",
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            var _code = "";
+                            var _path = localStorage.getItem("path");
+                            for (var i = 1; i < data.length; i++) {
+                                _code += data[i].FileUrl + " ";
+                                _code += data[i].Id + " ";
+                            }
+                            saveTextAsFile(_code, _path);
+                        },
+                        error: function (response) {
+                            swal("Không thành công", "Có lỗi xảy ra, vui lòng thử lại sau!", "error");
+                        }
+                    });
+                    swal(
+                        'Vui lòng download và chạy file',
+                        '',
+                        'warning'
+                    )
+                }
+                else {
+                    //Do nothing
+                }
+
+            });
+        });
+    </script>
 }

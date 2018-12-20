@@ -14,6 +14,8 @@ const PAYMENT_STATUS = {
 }
 
 $(document).ready(function (e) {
+
+    
     //APP_PUBLIC.ManageInvoices.init();
 
     $('#min, #max').datepicker({
@@ -203,11 +205,11 @@ $(document).ready(function (e) {
     moveComponents();
 
     $('[data-toggle="tooltip"]').tooltip();
-    
+
     $('#invoice-table').on('click', '.js-pdf', function (e) {
         e.preventDefault();
         var fileUrl = $(this).attr("data-file-url");
-        $("#modal-form embed").attr("src", fileUrl + "?dummy=" + Math.random());
+        $("#modal-form embed").attr("src", fileUrl /*+ "?dummy=" + Math.random()*/);
     });
 
     $('#invoice-table').on('click', '.js-delete', function (e) {
@@ -296,7 +298,7 @@ $(document).ready(function (e) {
 
     });
 
-    $('#invoice-table').on('click', '.js-sign', function(e){
+    $('#invoice-table').on('click', '.js-sign', function (e) {
         e.preventDefault();
         var invoiceId = $(this).attr('data-id');
 
@@ -383,6 +385,6 @@ $(document).ready(function (e) {
                 }
             });
         }
-        
+
     });
 });

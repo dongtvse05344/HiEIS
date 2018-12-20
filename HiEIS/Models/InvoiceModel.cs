@@ -36,6 +36,13 @@ namespace HiEIS.Models
         public string StaffId { get; set; }
         public string CustomerId { get; set; }
     }
+
+    public class InvoiceSignVM
+    {
+        public int Id { get; set; }
+
+        public String FileUrl { get; set; }
+    }
     public class TableInvoiceModel
     {
         public string StaffCompanyName { get; set; }

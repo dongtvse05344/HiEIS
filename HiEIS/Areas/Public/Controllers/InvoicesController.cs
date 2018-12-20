@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HiEIS.Businesses;
-using Newtonsoft.Json;
 using HiEIS.Models;
 using System.Text;
 using HiEIS.Areas.Public.Models;
@@ -15,6 +14,8 @@ using HiEIS.Utils;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using System.Net;
+using HiEIS.Entities;
+using Newtonsoft.Json;
 
 namespace HiEIS.Areas.Public.Controllers
 {
@@ -32,6 +33,11 @@ namespace HiEIS.Areas.Public.Controllers
                 return View("CustomerView");
             }
             return View("CompanyView");
+        }
+
+        public ActionResult HDKi()
+        {
+            return View();
         }
 
         //[Authorize(Roles = HiEISUtil.RoleStaffs)]
@@ -72,6 +78,23 @@ namespace HiEIS.Areas.Public.Controllers
             return Json(invoices);
         }
 
+        public String GetInvoiceWaitSign()
+        {
+            using (var dbContext = new HiEISEntities())
+            {
+                List<InvoiceSignVM> result = new List<InvoiceSignVM>();
+                var invoices = dbContext.Invoices.Where(a => a.Status == 2 && a.Staff.CompanyId == this.Company.Id).ToList();
+                result.Add(new InvoiceSignVM { FileUrl = "E:\\_Nhap\\HDDTTA\\" });
+                foreach(var invoice in invoices)
+                {
+                    result.Add(new InvoiceSignVM { Id = invoice.Id , FileUrl = invoice.FileUrl});
+                }
+                return JsonConvert.SerializeObject(result);
+            }
+            
+
+        }
+
         [HttpGet]
         public FileContentResult GetInvoicePdf(int invoiceId)
         {
@@ -95,6 +118,7 @@ namespace HiEIS.Areas.Public.Controllers
             }
             
         }
+
 
         //GET: Public/Invoices/Create
         [Authorize(Roles = HiEISUtil.RoleNormalAccountants)]

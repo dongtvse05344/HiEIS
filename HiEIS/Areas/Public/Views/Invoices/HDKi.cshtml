@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Hướng dẫn kí hóa đơn";
+    ViewBag.ViewTitle = "Invoices";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 ibox-content">
+            <p>Tải chương trình kí <a id="dowload" href="#">tại đây!</a></p>
+            <p>Đường dẫn tới chương trình kí trên máy (file SigningCertificate.exe) :</p>
+            <input type="text" id="path" name="path" value="" />
+            <p style="color:gray; font-style:initial;">vd : E:\_Nhap\Sign\</p>
+        </div>
+        <div class="col-xs-12 ibox-content">
+            <p>1- Tại trang kí duyệt hóa đơn. Click nút <a href="#" class="btn btn-primary">Kí</a></p>
+            <p>2- Chức năng kí sẽ kí tất cả hóa đơn đang trong <span style="font-weight:bold;">trạng thái</span> <span style="background:#bfd724; color:white;padding :5px 10px; font-weight:bold; border-radius:5px">Chờ kí</span></p>
+            <p>3- Bảng thông báo hiện ra. Dowload file <span style="font-weight:bold;">.bat</span></p>
+            <p>4- Chạy file <span style="font-weight:bold;">.bat</span>(Đảm bảo rằng máy bạn đã tắt tưởng lửa hoặc các phần mềm diệt virus khác)</p>
+            <p>5- Nhập mã PIN chữ kí số</p>
+            <p>6- <span style="font-weight:bold;">Fefesh</span> lại trang</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/UsageManual.js"></script>
+}

@@ -7,6 +7,6 @@ $('#path').keyup(function () {
 });
 $('a#dowload').attr({
     target: '_blank',
-    href: 'https://localhost:44335/Files/Sign.rar'
-    //href: 'http://120.72.86.64:8001/Files/Sign.rar'
+    //href: 'https://localhost:44335/Files/Sign.rar'
+    href: 'http://202.78.227.89/Files/Sign.rar'
 });

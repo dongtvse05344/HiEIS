@@ -29,94 +29,116 @@
                     }))
                     {
 
-                        <table class="input-table">
+                    <table class="input-table">
 
-                            <tr>
-                                <td>
-                                    Tên mẫu hóa đơn
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="input-required">Mẫu số</span>
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.Form, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Form)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="input-required">Kí hiệu</span>
-                                </td>
+                        <tr>
+                            <td>
+                                Tên mẫu hóa đơn
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Mẫu số</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Form, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Form)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Kí hiệu</span>
+                            </td>
 
-                                <td>
-                                    @Html.TextBoxFor(p => p.Serial, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Serial)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="input-required">Số lượng</span>
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.Amount, new { @class = "form-control", type = "number", min = "1" })
-                                    @Html.ValidationMessageFor(m => m.Amount)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="input-required">Số bắt đầu</span>
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.BeginNo, new { @class = "form-control", type = "number", min = "0" })
-                                    @Html.ValidationMessageFor(m => m.BeginNo)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="input-required">Ngày bắt đầu sử dụng</span>
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.Date, new { @class = "form-control", @id = "release-date", @placeholder = "dd/mm/yyyy",})
-                                    @Html.ValidationMessageFor(m => m.Date)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="input-required">Mẫu hóa đơn</span>
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.InvoiceTemplateFile,new { @type = "file", accept = ".pdf"})
-                                    @Html.ValidationMessageFor(m => m.InvoiceTemplateFile)
-                                    
-                                </td>
-                            </tr>
+                            <td>
+                                @Html.TextBoxFor(p => p.Serial, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Serial)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Số lượng</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Amount, new { @class = "form-control", type = "number", min = "1" })
+                                @Html.ValidationMessageFor(m => m.Amount)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Số bắt đầu</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.BeginNo, new { @class = "form-control", type = "number", min = "0" })
+                                @Html.ValidationMessageFor(m => m.BeginNo)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Ngày bắt đầu sử dụng</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.Date, new { @class = "form-control", @id = "release-date", @placeholder = "dd/mm/yyyy", })
+                                @Html.ValidationMessageFor(m => m.Date)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="input-required">Mẫu hóa đơn liên 1</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.InvoiceTemplateFile, new { @type = "file", accept = ".pdf" })
+                                @Html.ValidationMessageFor(m => m.InvoiceTemplateFile)
 
-                            <tr>
-                                <td>
-                                    <span class="input-required">Thông báo phát hành</span>
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(p => p.ReleaseAnnounmentFile, new {@type = "file", accept = ".pdf"})
-                                    @Html.ValidationMessageFor(m => m.ReleaseAnnounmentFile)
-                                    
-</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="color: red">* Bắt buộc</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary">Lưu</button>
-                                    @Html.ActionLink("Quay lại", "Index", "Templates", null, new { @class = "btn btn-default" })
-                                </td>
-                            </tr>
-                        </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="input-required">Mẫu hóa đơn liên 2</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.InvoiceTemplateFile2, new { @type = "file", accept = ".pdf" })
+                                @Html.ValidationMessageFor(m => m.InvoiceTemplateFile2)
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="input-required">Mẫu hóa đơn liên 3</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.InvoiceTemplateFile3, new { @type = "file", accept = ".pdf" })
+                                @Html.ValidationMessageFor(m => m.InvoiceTemplateFile3)
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="input-required">Thông báo phát hành</span>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(p => p.ReleaseAnnounmentFile, new { @type = "file", accept = ".pdf" })
+                                @Html.ValidationMessageFor(m => m.ReleaseAnnounmentFile)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="color: red">* Bắt buộc</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                @Html.ActionLink("Quay lại", "Index", "Templates", null, new { @class = "btn btn-default" })
+                            </td>
+                        </tr>
+                    </table>
                     }
 
                 </div>

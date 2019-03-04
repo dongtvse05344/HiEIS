@@ -10,7 +10,8 @@ namespace SigningCertificate
 
     class Program
     {
-        static String _uri = "https://localhost:44335/";
+        //static String _uri = "https://localhost:44335/";
+        static String _uri = "http://einvoice.hisoft.vn/";
         static void Main(string[] args)
         {
             try
@@ -34,8 +35,8 @@ namespace SigningCertificate
                 {
 
                 }
-                //paths.Add(_uri + "/Files/Invoices/20181220_cN8sxSsl1QAPM.pdf");
-                //Ids.Add("2103");
+                //paths.Add(_uri + "/Files/Invoices/20181221_KB1HuPQqdQTL1.pdf");
+                //Ids.Add("2109"); 
                 var cert = Utils.Utils.GetCertificate();
                 if (cert == null)
                 {

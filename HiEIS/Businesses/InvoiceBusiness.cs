@@ -281,6 +281,16 @@ namespace HiEIS.Businesses
                         + lookupCode
                         + ".pdf";
 
+                    string fileName2 = "/Files/Invoices/"
+                        + DateTime.Now.ToString("yyyyMMdd") + "_2"
+                        + lookupCode
+                        + ".pdf";
+
+                    string fileName3 = "/Files/Invoices/"
+                        + DateTime.Now.ToString("yyyyMMdd") + "_3"
+                        + lookupCode
+                        + ".pdf";
+
                     model.LookupCode = lookupCode;
                     model.Type = 2;
                     model.Date = DateTime.Now;
@@ -290,7 +300,9 @@ namespace HiEIS.Businesses
 
                     var invoice = Mapper.Map<CreateInvoiceViewModel, Invoice>(model);
                     var pdfModel = Mapper.Map<CreateInvoiceViewModel, PdfViewModel>(model);
-                    invoice.FileUrl = GenerateFinalPdf(fileName, pdfModel);
+                    invoice.FileUrl = GenerateFinalPdf(fileName, pdfModel,1);
+                    invoice.FileUrl2 = GenerateFinalPdf(fileName2, pdfModel, 2);
+                    invoice.FileUrl3 = GenerateFinalPdf(fileName3, pdfModel, 3);
 
                     db.Invoices.Add(invoice);
                     db.SaveChanges();
@@ -312,7 +324,7 @@ namespace HiEIS.Businesses
         /// <param name="fileName"></param>
         /// <param name="model">PDF model</param>
         /// <returns>File virtual path</returns>
-        private string GenerateFinalPdf(string fileName, PdfViewModel model)
+        private string GenerateFinalPdf(string fileName, PdfViewModel model, int type)
         {
             var pages = Math.Ceiling(model.InvoiceItems.Count / 10d);
             var pdf = new PdfViewModel();
@@ -329,7 +341,7 @@ namespace HiEIS.Businesses
                     .Take(10)
                     .ToList();
                 string newFile = fileName + "_" + i + ".pdf";
-                GeneratePdf(newFile, pdf, isLastPage);
+                GeneratePdf(newFile, pdf, isLastPage, type);
 
                 string newFileUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, newFile.RemoveFirstSlash());
                 generatedFiles.Add(newFileUrl);
@@ -403,11 +415,14 @@ namespace HiEIS.Businesses
 
                         var pdfModel = Mapper.Map<InvoiceViewModel, PdfViewModel>(model);
                         // generate pdf file
-                        var fileUrl = GenerateFinalPdf(invoiceInDb.FileUrl, pdfModel);
+                        var fileUrl = GenerateFinalPdf(invoiceInDb.FileUrl, pdfModel,1);
+                        var fileUrl2 = GenerateFinalPdf(invoiceInDb.FileUrl2, pdfModel, 2);
+                        var fileUrl3 = GenerateFinalPdf(invoiceInDb.FileUrl3, pdfModel, 3);
 
                         var newInvoice = Mapper.Map(model, invoiceInDb);
                         newInvoice.FileUrl = fileUrl;
-
+                        newInvoice.FileUrl2 = fileUrl2;
+                        newInvoice.FileUrl3 = fileUrl3;
                         // save changes
                         db.SaveChanges();
 
@@ -483,7 +498,9 @@ namespace HiEIS.Businesses
 
 
                         var pdfModel = Mapper.Map<Invoice, PdfViewModel>(invoiceInDb);
-                        invoiceInDb.FileUrl = GenerateFinalPdf(invoiceInDb.FileUrl, pdfModel);
+                        invoiceInDb.FileUrl = GenerateFinalPdf(invoiceInDb.FileUrl, pdfModel,1);
+                        invoiceInDb.FileUrl2 = GenerateFinalPdf(invoiceInDb.FileUrl2, pdfModel, 2);
+                        invoiceInDb.FileUrl3 = GenerateFinalPdf(invoiceInDb.FileUrl3, pdfModel, 3);
 
                         db.SaveChanges();
 
@@ -561,7 +578,9 @@ namespace HiEIS.Businesses
 
                         //Digital signature and assign FileUrl here
                         var pdfModel = Mapper.Map<Invoice, PdfViewModel>(invoiceInDb);
-                        GenerateFinalPdf(invoiceInDb.FileUrl, pdfModel);
+                        GenerateFinalPdf(invoiceInDb.FileUrl, pdfModel,1);
+                        GenerateFinalPdf(invoiceInDb.FileUrl2, pdfModel, 2);
+                        GenerateFinalPdf(invoiceInDb.FileUrl3, pdfModel, 3);
 
                         return pdfModel;
                     }
@@ -592,7 +611,7 @@ namespace HiEIS.Businesses
             return result.ToString();
         }
 
-        private string GeneratePdf(string fileName, PdfViewModel model, bool isLastPage)
+        private string GeneratePdf(string fileName, PdfViewModel model, bool isLastPage, int type)
         {
             PdfReader pdfReader = null;
             string fileUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName.RemoveFirstSlash());
@@ -603,7 +622,13 @@ namespace HiEIS.Businesses
                     //template
                     var templateBusiness = new TemplateBusiness();
                     var template = templateBusiness.GetTemplateById(model.TemplateId);
-                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, template.FileUrl.RemoveFirstSlash());
+                    string path = "";
+                    switch(type)
+                    {
+                        case 1: path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, template.FileUrl.RemoveFirstSlash()); break;
+                        case 2: path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, template.FileUrl2.RemoveFirstSlash()); break;
+                        case 3: path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, template.FileUrl3.RemoveFirstSlash()); break;
+                    }
                     PdfStamper pdfStamper = null;
 
                     pdfReader = new PdfReader(path);
@@ -701,7 +726,9 @@ namespace HiEIS.Businesses
 
                         //generate pdf 
                         var pdfModel = Mapper.Map<Invoice, PdfViewModel>(i);
-                        i.FileUrl = GenerateFinalPdf(i.FileUrl, pdfModel);
+                        i.FileUrl = GenerateFinalPdf(i.FileUrl, pdfModel,1);
+                        i.FileUrl2 = GenerateFinalPdf(i.FileUrl2, pdfModel, 2);
+                        i.FileUrl3 = GenerateFinalPdf(i.FileUrl3, pdfModel, 3);
 
                         //set currentNo mới cho template và check nếu template hết block
                         UpdateTemplateNumber(i.TemplateId, companyId, db);

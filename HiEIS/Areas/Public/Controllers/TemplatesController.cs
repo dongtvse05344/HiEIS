@@ -93,6 +93,9 @@ namespace HiEIS.Areas.Public.Controllers
                 {
                     
                     model.FileUrl = GetPathFile(model.InvoiceTemplateFile, "TemplateInvoice");
+                    model.FileUrl2 = GetPathFile(model.InvoiceTemplateFile2, "TemplateInvoice");
+                    model.FileUrl3 = GetPathFile(model.InvoiceTemplateFile3, "TemplateInvoice");
+
                     model.ReleaseAnnouncementUrl = GetPathFile(model.ReleaseAnnounmentFile, "ReleaseAnnouncement");
                     model.IsActive = true;
 

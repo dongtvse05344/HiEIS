@@ -105,6 +105,8 @@ namespace HiEIS.Businesses
                     template.Date = null;
                     template.ReleaseAnnounmentFile = null;
                     template.IsActive = templateInDb.IsActive;
+                    template.FileUrl2 = templateInDb.FileUrl2;
+                    template.FileUrl3 = templateInDb.FileUrl3;
                     return template;
                 }
                 return null;

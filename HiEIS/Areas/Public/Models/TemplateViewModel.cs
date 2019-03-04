@@ -18,6 +18,8 @@ namespace HiEIS.Areas.Public.Models
         public string Serial { get; set; }
 
         public string FileUrl { get; set; }
+        public string FileUrl2 { get; set; }
+        public string FileUrl3 { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập số lượng hóa đơn")]
         public int Amount { get; set; }
@@ -45,8 +47,14 @@ namespace HiEIS.Areas.Public.Models
 
         public string Date { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng đính kèm mẫu hóa đơn")]
+        [Required(ErrorMessage = "Vui lòng đính kèm mẫu hóa đơn 1")]
         public HttpPostedFileBase InvoiceTemplateFile { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng đính kèm mẫu hóa đơn 2")]
+        public HttpPostedFileBase InvoiceTemplateFile2 { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng đính kèm mẫu hóa đơn 3")]
+        public HttpPostedFileBase InvoiceTemplateFile3 { get; set; }
 
         [Required(ErrorMessage = "Vui lòng đính kèm thông báo phát hành hóa đơn")]
         public HttpPostedFileBase ReleaseAnnounmentFile { get; set; }

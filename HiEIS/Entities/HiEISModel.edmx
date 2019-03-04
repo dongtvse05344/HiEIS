@@ -120,6 +120,8 @@
           <Property Name="StaffId" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="CustomerId" Type="nvarchar" MaxLength="256" />
           <Property Name="CodeGuid" Type="varchar" MaxLength="50" />
+          <Property Name="FileUrl2" Type="nvarchar(max)" />
+          <Property Name="FileUrl3" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -206,6 +208,8 @@
           <Property Name="ReleaseDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ReleaseAnnouncementUrl" Type="varchar(max)" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="FileUrl2" Type="varchar(max)" />
+          <Property Name="FileUrl3" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -835,6 +839,8 @@
           <NavigationProperty Name="Staff" Relationship="HiEISModel.FK_Invoice_Staff" FromRole="Invoice" ToRole="Staff" />
           <NavigationProperty Name="Template" Relationship="HiEISModel.FK_Invoice_Template" FromRole="Invoice" ToRole="Template" />
           <NavigationProperty Name="InvoiceItems" Relationship="HiEISModel.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+          <Property Name="FileUrl2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileUrl3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -938,6 +944,8 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="HiEISModel.FK_Template_Company" FromRole="Template" ToRole="Company" />
           <NavigationProperty Name="Invoices" Relationship="HiEISModel.FK_Invoice_Template" FromRole="Template" ToRole="Invoice" />
+          <Property Name="FileUrl2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileUrl3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -1284,6 +1292,8 @@
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="HiEISModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="FileUrl3" ColumnName="FileUrl3" />
+                <ScalarProperty Name="FileUrl2" ColumnName="FileUrl2" />
                 <ScalarProperty Name="CodeGuid" ColumnName="CodeGuid" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
@@ -1391,6 +1401,8 @@
           <EntitySetMapping Name="Templates">
             <EntityTypeMapping TypeName="HiEISModel.Template">
               <MappingFragment StoreEntitySet="Template">
+                <ScalarProperty Name="FileUrl3" ColumnName="FileUrl3" />
+                <ScalarProperty Name="FileUrl2" ColumnName="FileUrl2" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ReleaseAnnouncementUrl" ColumnName="ReleaseAnnouncementUrl" />
                 <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />

@@ -32,6 +32,8 @@ namespace HiEIS.Entities
         public System.DateTime ReleaseDate { get; set; }
         public string ReleaseAnnouncementUrl { get; set; }
         public bool IsActive { get; set; }
+        public string FileUrl2 { get; set; }
+        public string FileUrl3 { get; set; }
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

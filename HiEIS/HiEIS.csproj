@@ -58,16 +58,16 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Quartz, Version=3.0.6.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Quartz.3.0.6\lib\net452\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Quartz.Serialization.Json, Version=3.0.6.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Quartz.Serialization.Json.3.0.6\lib\net452\Quartz.Serialization.Json.dll</HintPath>
+    <Reference Include="Quartz.Serialization.Json, Version=3.0.5.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.Serialization.Json.3.0.5\lib\net452\Quartz.Serialization.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -373,126 +373,6 @@
     <Compile Include="Utils\UniqueTaxNoAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\AutoMapper.dll" />
-    <Content Include="bin\AutoMapper.xml" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\HiEIS.dll" />
-    <Content Include="bin\HiEIS.pdb" />
-    <Content Include="bin\IronPdf.dll" />
-    <Content Include="bin\IronPdf.xml" />
-    <Content Include="bin\itextsharp.dll" />
-    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
-    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
-    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
-    <Content Include="bin\Microsoft.AI.Web.dll" />
-    <Content Include="bin\Microsoft.AI.Web.xml" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
-    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
-    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
-    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.dll" />
-    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.xml" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\Microsoft.Owin.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.xml" />
-    <Content Include="bin\Microsoft.Owin.xml" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\Owin.dll" />
-    <Content Include="bin\Quartz.dll" />
-    <Content Include="bin\Quartz.pdb" />
-    <Content Include="bin\Quartz.xml" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\csi.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
-    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
-    <Content Include="bin\roslyn\System.AppContext.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Console.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.Process.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.DriveInfo.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
-    <Content Include="bin\roslyn\System.IO.Pipes.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\System.Security.AccessControl.dll" />
-    <Content Include="bin\roslyn\System.Security.Claims.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
-    <Content Include="bin\roslyn\System.Security.Principal.Windows.dll" />
-    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
-    <Content Include="bin\roslyn\System.Threading.Thread.dll" />
-    <Content Include="bin\roslyn\System.ValueTuple.dll" />
-    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
-    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
-    <Content Include="bin\System.Diagnostics.DiagnosticSource.xml" />
-    <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Http.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -576,8 +456,6 @@
     <Content Include="Areas\Public\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Public\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Public\Views\Invoices\CompanyView.cshtml" />
-    <Content Include="Areas\Public\Views\Liabilities\Index.cshtml" />
-    <Content Include="Areas\Public\Views\ProformaInvoice\Index.cshtml" />
     <Content Include="Areas\Public\Views\Products\Index.cshtml" />
     <Content Include="Areas\Public\Views\Products\Create.cshtml" />
     <Content Include="Areas\Public\Views\Products\Edit.cshtml" />
@@ -600,17 +478,6 @@
     <Content Include="Areas\Admin\Views\Company\Create.cshtml" />
     <Content Include="Areas\Public\Views\ProformaInvoice\ProformaEmailTemplate.cshtml" />
     <Content Include="Areas\Public\Views\Liabilities\CustomerView.cshtml" />
-    <Content Include="bin\ApplicationInsights.config" />
-    <Content Include="bin\HiEIS.dll.config" />
-    <Content Include="bin\roslyn\csc.exe.config" />
-    <Content Include="bin\roslyn\csc.rsp" />
-    <Content Include="bin\roslyn\csi.exe.config" />
-    <Content Include="bin\roslyn\csi.rsp" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\vbc.exe.config" />
-    <Content Include="bin\roslyn\vbc.rsp" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="Areas\Admin\Views\Account\Admin.cshtml" />
     <Content Include="Areas\Admin\Views\Account\CreateAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Account\CreateCustomer.cshtml" />
@@ -637,28 +504,10 @@
     <Content Include="Areas\Admin\Views\Account\EditAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Account\EditCustomer.cshtml" />
     <Content Include="Areas\Public\Views\Liabilities\CompanyDetails.cshtml" />
-    <Content Include="Files\TemplateInvoice\101d2f75-b89a-4e1a-b8e8-28f53fd5b868.pdf" />
-    <Content Include="Files\TemplateInvoice\13720bda-3c91-4951-a1d8-e3290ef1d54f.pdf" />
-    <Content Include="Files\TemplateInvoice\1b675426-7149-4ea4-9ec6-116de557a7a6..pdf" />
-    <Content Include="Files\TemplateInvoice\3de9ee3a-d833-4131-a5a9-c812e1fcaa63.pdf" />
-    <Content Include="Files\TemplateInvoice\4aa02525-7d53-4802-b102-a291d497a660.pdf" />
-    <Content Include="Files\TemplateInvoice\58c6f38a-5041-4b3c-948a-db71b9329bbc.pdf" />
-    <Content Include="Files\TemplateInvoice\5d9be9e4-6624-4e28-9e37-6a6b4f216fe5.pdf" />
-    <Content Include="Files\TemplateInvoice\604d1d6d-659b-4304-b945-47e3f9a6b71f..pdf" />
-    <Content Include="Files\TemplateInvoice\6580281a-0893-4a5b-9b79-0bc4e643b0df.pdf" />
-    <Content Include="Files\TemplateInvoice\73428412-f203-4908-ad16-933718228522.pdf" />
-    <Content Include="Files\TemplateInvoice\8ea61e57-059a-4fda-ad4c-66acea81f709.pdf" />
-    <Content Include="Files\TemplateInvoice\a52656e6-879a-43e7-a558-eeb1b75930be.pdf" />
-    <Content Include="Files\TemplateInvoice\accd0a55-b064-4e42-bf9a-071cce5d8b17.pdf" />
-    <Content Include="Files\TemplateInvoice\b73c22cd-f404-445b-9bb2-baa69a841e8b.pdf" />
-    <Content Include="Files\TemplateInvoice\c9c2b2bf-7b61-48b6-8f7c-9369525fb50c.pdf" />
-    <Content Include="Files\TemplateInvoice\d64e77e4-7369-4066-a7c4-472c09b2ddb6.pdf" />
-    <Content Include="Files\TemplateInvoice\eeabdcf0-86d1-48de-be6e-59065a0f64b2.pdf" />
-    <Content Include="Files\TemplateInvoice\eeca7b1d-80cf-4d72-b403-178c3f62bc30.pdf" />
-    <Content Include="Files\TemplateInvoice\fa8f7f97-399b-4705-8ae2-001e93ac7955.pdf" />
-    <Content Include="Files\TemplateInvoice\fb5d69f5-68c1-466a-937f-cf0dab6b8ced.pdf" />
     <Content Include="Files\TemplateInvoice\Invoice_0629V3.pdf" />
     <Content Include="Areas\Public\Views\Invoices\HDKi.cshtml" />
+    <Content Include="Files\Sign.rar" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap3-typeahead.js" />
     <Content Include="Scripts\hieis-account-staff-input.js" />
@@ -757,6 +606,7 @@
     <Folder Include="Files\Announcement\" />
     <Folder Include="Files\Invoices\" />
     <Folder Include="Files\ProformaInvoices\" />
+    <Folder Include="Files\ReleaseAnnouncement\" />
     <Folder Include="Files\Signed\" />
   </ItemGroup>
   <ItemGroup>

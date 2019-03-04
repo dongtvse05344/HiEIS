@@ -16,6 +16,8 @@ namespace HiEIS.Models
         public Nullable<System.DateTime> DueDate { get; set; }
         public int PaymentMethod { get; set; }
         public string FileUrl { get; set; }
+        public string FileUrl2 { get; set; }
+        public string  FilUrl3 { get; set; }
         public decimal SubTotal { get; set; }
         public decimal VATRate { get; set; }
         public decimal VATAmount { get; set; }

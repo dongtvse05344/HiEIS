@@ -49,6 +49,8 @@ namespace HiEIS.Entities
         public string StaffId { get; set; }
         public string CustomerId { get; set; }
         public string CodeGuid { get; set; }
+        public string FileUrl2 { get; set; }
+        public string FileUrl3 { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Staff Staff { get; set; }
